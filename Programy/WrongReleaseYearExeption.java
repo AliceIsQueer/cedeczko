@@ -1,5 +1,5 @@
-public class WrongReleaseYearExeption extends Exception {
-    public WrongReleaseYearExeption(String errorMessage) {
+public class WrongReleaseYearError extends Exception {
+    public WrongReleaseYearError(String errorMessage) {
         super(errorMessage);
     }
 }
