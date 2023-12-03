@@ -77,7 +77,7 @@ public class Film {
         this.description = new_description;
     }
 
-    public setPoster(SerialBlob new_poster) {
+    public void setPoster(SerialBlob new_poster) {
         this.poster = new_poster;
     }
 }
