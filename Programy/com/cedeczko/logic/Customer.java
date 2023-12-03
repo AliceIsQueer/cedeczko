@@ -1,3 +1,10 @@
+package com.cedeczko.logic;
+
+import com.cedeczko.errors.EmptyStringError;
+import com.cedeczko.errors.NegativeValueError;
+import com.cedeczko.errors.WrongEmailError;
+import com.cedeczko.errors.WrongPostalCodeError;
+
 public class Customer {
     private String name;
     private String surname;

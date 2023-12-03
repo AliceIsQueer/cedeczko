@@ -1,10 +1,11 @@
+package com.cedeczko.windows;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Dimension;
-import javax.sql.rowset.serial.SerialBlob;
 
 public class ProductWindow extends JFrame {
 

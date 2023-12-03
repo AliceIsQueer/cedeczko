@@ -1,3 +1,10 @@
+package com.cedeczko.logic;
+
+import com.cedeczko.errors.EmptyStringError;
+import com.cedeczko.errors.NoGenresError;
+import com.cedeczko.errors.WrongPriceError;
+import com.cedeczko.errors.WrongReleaseYearError;
+
 import java.util.*;
 import javax.sql.rowset.serial.SerialBlob;
 import java.time.LocalDate;

@@ -1,11 +1,13 @@
+package com.cedeczko.windows;
+
 import javax.swing.SwingUtilities;
 
-public class SuccessfulWindowRunner {
+public class PaymentWindowRunner {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                SuccessfulWindow successful_window = new SuccessfulWindow();
+                PaymentWindow payment_window = new PaymentWindow();
             }
         });
     }

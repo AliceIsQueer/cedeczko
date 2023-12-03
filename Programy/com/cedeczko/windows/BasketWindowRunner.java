@@ -1,11 +1,13 @@
+package com.cedeczko.windows;
+
 import javax.swing.SwingUtilities;
 
-public class ProductWindowRunner {
+public class BasketWindowRunner {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ProductWindow product_window = new ProductWindow();
+                BasketWindow basket_window = new BasketWindow();
             }
         });
     }

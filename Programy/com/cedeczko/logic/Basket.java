@@ -1,3 +1,5 @@
+package com.cedeczko.logic;
+
 import java.util.*;
 
 public class Basket {
