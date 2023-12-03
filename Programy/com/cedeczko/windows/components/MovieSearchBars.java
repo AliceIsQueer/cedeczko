@@ -2,40 +2,39 @@ package com.cedeczko.windows.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class MovieSearchBars {
     private JPanel panel;
     private JTextField movieNameTextField;
-    private JTextField authorNameTextField;
+    private JTextField movieAuthorTextField;
     private JComboBox<String> movieGenrePicker;
+    private JTextField movieYearTextField;
 
     public MovieSearchBars() {
         panel = new JPanel();
 
-        movieNameTextField = createMovieTextField();
-        authorNameTextField = createAuthorTextField();
+        movieNameTextField = createNameTextField();
+        movieAuthorTextField = createAuthorTextField();
         movieGenrePicker = createMovieGenrePicker();
+        movieYearTextField = createYearTextField();
 
         panel.add(BorderLayout.NORTH, movieNameTextField);
-        panel.add(BorderLayout.NORTH, authorNameTextField);
+        panel.add(BorderLayout.NORTH, movieAuthorTextField);
         panel.add(BorderLayout.NORTH, movieGenrePicker);
+        panel.add(BorderLayout.NORTH, movieYearTextField);
     }
 
-    private JTextField createMovieTextField() {
-        JTextField textField = new JTextField(15);
+    private JTextField createYearTextField() {
+        return new SearchBox("Rok...", "Wyszukaj film po roku wydania", 4);
+    }
 
-        textField.setToolTipText("Wyszukaj film po nazwie");
-        textField.addActionListener(e -> System.out.println(textField.getText()));
-
-        return textField;
+    private JTextField createNameTextField() {
+        return new SearchBox("Tytuł...", "Wyszukaj film po tytule", 15);
     }
     private JTextField createAuthorTextField() {
-        JTextField textField = new JTextField(15);
-
-        textField.setToolTipText("Wyszukaj film po autorze");
-        textField.addActionListener(e -> System.out.println(textField.getText()));
-
-        return textField;
+        return new SearchBox("Autor...", "Wyszukaj film po autorze", 15);
     }
     private JComboBox<String> createMovieGenrePicker() {
         String[] genres = {"Action", "Horror", "Thriller", "Comedy"};
