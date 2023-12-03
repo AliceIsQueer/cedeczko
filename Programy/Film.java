@@ -79,5 +79,5 @@ public class Film {
 
     public setPoster(SerialBlob new_poster) {
         this.poster = new_poster;
-    s}
+    }
 }
