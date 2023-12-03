@@ -1,6 +1,4 @@
-
-
-public class WrongPriceError extends Exception {
+public class WrongPriceError extends RuntimeException {
     public WrongPriceError(String errorMessage) {
         super(errorMessage);
     }

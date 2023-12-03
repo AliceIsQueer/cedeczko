@@ -41,7 +41,7 @@ public class BasketWindow extends JFrame {
         up_panel.setPreferredSize(new Dimension(wide, upper_high));
         // przycisk powrót
         JButton return_button = new JButton("<--- Powrót");
-        //return_button.addActionListener(e -> new MainWindow(this)); tu bedzie przejści do głównego ekranu
+        return_button.addActionListener(e -> new ProductWindow(this)); //tu bedzie przejści do głównego ekranu albo nie
         up_panel.add(return_button);
 
         add(up_panel, BorderLayout.NORTH);

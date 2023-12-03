@@ -24,7 +24,7 @@ public class Film {
         if (g_year > 1888 && g_year <= LocalDate.now().getYear()) {
             this.year = g_year;
         } else {
-            throw new WrongReleaseYearExeption("The release year is either too early or later than current year.");
+            throw new WrongReleaseYearError("The release year is either too early or later than current year.");
         }
         if (g_price <= 0) {
             throw new WrongPriceError("Price must be positive.");

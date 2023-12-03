@@ -12,6 +12,11 @@ public class ProductWindow extends JFrame {
         initialize();
     }
 
+    public ProductWindow(JFrame previous_window) {
+        initialize();
+        previous_window.dispose();
+    }
+
     public void initialize() {
         int wide = 900;
         int high = 800;
@@ -33,6 +38,7 @@ public class ProductWindow extends JFrame {
         up_panel.add(return_button);
         // przycisk koszyk
         JButton basket_button = new JButton("Twój koszyk");
+        basket_button.addActionListener(e -> new BasketWindow(this));
         up_panel.add(basket_button);
 
         add(up_panel, BorderLayout.NORTH);
