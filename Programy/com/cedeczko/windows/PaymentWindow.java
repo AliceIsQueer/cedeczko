@@ -125,10 +125,10 @@ public class PaymentWindow extends JFrame {
                 String card_no = card_no_field.getText();
                 String expiration_date = expiration_date_field.getText();
                 String verification_code = verification_code_field.getText();
-                if (name.isEmpty()) {
-                    warning.setText("Uzupełnij imię.");
-                } else if (surname.isEmpty()) {
-                    warning.setText("Uzupełnij nazwisko.");
+                if (!check_string(name)) {
+                    warning.setText("Wpisz poprawne imię.");
+                } else if (!check_string(surname)) {
+                    warning.setText("Wpisz poprawne nazwisko.");
                 } else if (!check_email(email)) {
                     warning.setText("Email musi zawierać '@'.");
                 } else if (!check_phone(phone_no)) {
@@ -139,8 +139,8 @@ public class PaymentWindow extends JFrame {
                     warning.setText("Uzupełnij numer budynku.");
                 } else if (!check_flat(flat)) {
                     warning.setText("Mieszkanie musi być liczbą dodatnią.");
-                } else if (city.isEmpty()) {
-                    warning.setText("Uzupełnij miasto");
+                } else if (!check_string(city)) {
+                    warning.setText("Wpisz poprawne miasto");
                 } else if (!check_post_code(post_code)) {
                     warning.setText("Kod pocztowy musi mieć format XX-XXX.");
                 } else if (!check_card_no(card_no)) {
@@ -167,14 +167,33 @@ public class PaymentWindow extends JFrame {
         setVisible(true);
     }
 
-    private boolean check_email(String given_email) {
-        boolean has_at = false;
-        for (int i = 0; i < given_email.length(); i++) {
-            if (given_email.charAt(i) == '@') {
-                has_at = true;
+    private boolean check_string(String given_string) {
+        boolean ok = true;
+        if (given_string.isEmpty()){
+           ok = false;
+        }
+        for (int i = 0; i < given_string.length(); i++) {
+            if (!Character.isLetter(given_string.charAt(i))) {
+                ok = false;
             }
         }
-        return has_at;
+        return ok;
+    }
+
+    private boolean check_email(String given_email) {
+        boolean has_dot_at = false;
+        if (given_email.length() >= 5){
+            for (int i = 1; i < given_email.length() - 3; i++) {
+                if (given_email.charAt(i) == '@') {
+                    for (int j = i + 2; j < given_email.length() - 1; j++) {
+                        if (given_email.charAt(j) == '.') {
+                            has_dot_at = true;
+                        }
+                    }
+                }
+            }
+        }
+        return has_dot_at;
     }
 
     private boolean check_phone(String given_phone){

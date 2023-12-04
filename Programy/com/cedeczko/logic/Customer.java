@@ -69,13 +69,19 @@ public class Customer {
     }
 
     private boolean check_email(String given_email) {
-        boolean has_at = false;
-        for (int i = 0; i < given_email.length(); i++) {
-            if (given_email.charAt(i) == '@') {
-                has_at = true;
+        boolean has_dot_at = false;
+        if (given_email.length() >= 5){
+            for (int i = 1; i < given_email.length() - 3; i++) {
+                if (given_email.charAt(i) == '@') {
+                    for (int j = i + 2; j < given_email.length() - 1; j++) {
+                        if (given_email.charAt(j) == '.') {
+                            has_dot_at = true;
+                        }
+                    }
+                }
             }
         }
-        return has_at;
+        return has_dot_at;
     }
 
     public String get_name(){
