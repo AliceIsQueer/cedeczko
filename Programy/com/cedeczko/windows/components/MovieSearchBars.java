@@ -41,7 +41,7 @@ public class MovieSearchBars {
         return new SearchBox("Autor...", "Wyszukaj film po autorze", 15, listener, 1);
     }
     private JComboBox<String> createMovieGenrePicker() {
-        String[] genres = {"Action", "Horror", "Thriller", "Comedy"};
+        String[] genres = {"", "Action", "Horror", "Thriller", "Comedy"};
         JComboBox<String> moviePicker = new JComboBox<>(genres);
         moviePicker.setSelectedIndex(-1);
         moviePicker.addActionListener(e -> {
