@@ -44,25 +44,28 @@ public class Customer {
             throw new EmptyStringError("Building cannot be empty.");
         }
         this.city = given_city;
-        if (given_email == "") {
-            throw new EmptyStringError("Building cannot be empty.");
-        } else if (!check_email(given_email)) {
+        if (!check_email(given_email)) {
             throw new WrongEmailError("Email has to have @");
         }
         this.email = given_email;
     }
 
     private boolean check_postal_code(String given_postal_code) {
-        boolean ok = true;
-        if ((given_postal_code.length() != 6) || (given_postal_code.charAt(2) != '-')){
-            ok = false;
-        }
-        for (int i = 0; i < 6; i++) {
-            if ((i != 2) && (!Character.isDigit(given_postal_code.charAt(i)))) {
-                ok = false;
-            }
-        }
-        return ok;
+      boolean ok = true;
+      if (given_postal_code.length() == 6) {
+          if (given_postal_code.charAt(2) != '-') {
+              ok = false;
+          } else {
+              for (int i = 0; i < 6; i++) {
+                  if ((i != 2) && (!Character.isDigit(given_postal_code.charAt(i)))) {
+                      ok = false;
+                  }
+              }
+          }
+      } else {
+          ok = false;
+      }
+      return ok;
     }
 
     private boolean check_email(String given_email) {
@@ -157,9 +160,7 @@ public class Customer {
     }
 
     public void set_email(String new_email){
-        if (new_email == "") {
-            throw new EmptyStringError("Building cannot be empty.");
-        } else if (!check_email(new_email)) {
+        if (!check_email(new_email)) {
             throw new WrongEmailError("Email has to have @");
         }
         this.email = new_email;

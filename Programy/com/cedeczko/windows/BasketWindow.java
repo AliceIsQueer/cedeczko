@@ -23,7 +23,7 @@ public class BasketWindow extends JFrame {
 
     public BasketWindow(JFrame previous_window) {
         initialize();
-          previous_window.dispose();
+        previous_window.dispose();
     }
 
     public void initialize() {
@@ -43,7 +43,7 @@ public class BasketWindow extends JFrame {
         up_panel.setPreferredSize(new Dimension(wide, upper_high));
         // przycisk powrót
         JButton return_button = new JButton("<--- Powrót");
-        return_button.addActionListener(e -> new ProductWindow(this)); //tu bedzie przejści do głównego ekranu albo nie
+        return_button.addActionListener(e -> new ProductWindow(this));
         up_panel.add(return_button);
 
         add(up_panel, BorderLayout.NORTH);
@@ -55,21 +55,21 @@ public class BasketWindow extends JFrame {
         JLabel llabel = new JLabel("Lista zakupów:");
 
         model = new DefaultTableModel() {
-          @Override
-          public boolean isCellEditable(int row, int column) {
-             return false;
-          }
-        };;
+            @Override
+            public boolean isCellEditable(int row, int column) {
+              return false;
+            }
+        };
 
         model.addColumn("Nazwa produktu");
-        model.addColumn("Cena");
+        model.addColumn("Cena (zł)");
         model.addColumn("");
 
         products_table = new JTable(model);
         products_table.getColumnModel().getColumn(0).setPreferredWidth(4 * wide / 10);
         products_table.getColumnModel().getColumn(1).setPreferredWidth(2 * wide / 20);
         products_table.getColumnModel().getColumn(2).setPreferredWidth(2 * wide / 20);
-        Object[] przykladowyProdukt1 = {"Laptop", 2000.0, "Usuń produkt"}; //przykład, żeby sprawdzić, czy działa usuwanie
+        Object[] przykladowyProdukt1 = {"Piła X", 20.0, "Usuń produkt"}; //przykład, żeby sprawdzić, czy działa usuwanie
         model.addRow(przykladowyProdukt1);
 
         products_table.addMouseListener(new MouseAdapter() {

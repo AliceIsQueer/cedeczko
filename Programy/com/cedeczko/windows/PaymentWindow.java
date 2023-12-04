@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 
 public class PaymentWindow extends JFrame {
@@ -42,7 +44,8 @@ public class PaymentWindow extends JFrame {
         JPanel bottom_panel = new JPanel();
         bottom_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         bottom_panel.setPreferredSize(new Dimension(wide, upper_high));
-        bottom_panel.add(new JCheckBox("Zezwalam na wykorzystanie moich danych w celu zrealizowania zamówienia"));
+        JCheckBox rodo = new JCheckBox("Zezwalam na wykorzystanie moich danych w celu zrealizowania zamówienia");
+        bottom_panel.add(rodo);
 
         add(bottom_panel, BorderLayout.SOUTH);
 
@@ -104,15 +107,166 @@ public class PaymentWindow extends JFrame {
         JLabel r1label = new JLabel("PODSUMOWANIE");
         JLabel r2label = new JLabel("Liczba produktów:");
         JLabel r3label = new JLabel("Łączna kwota do zapłaty:");
+        JLabel warning = new JLabel("");
         JButton pay_button = new JButton("Zapłać");
-        pay_button.addActionListener(e -> new SuccessfulWindow(this));
+
+        pay_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = name_field.getText();
+                String surname = surname_field.getText();
+                String email = email_field.getText();
+                String phone_no = phone_no_field.getText();
+                String street = street_field.getText();
+                String building = building_no_field.getText();
+                String flat = local_no_field.getText();
+                String city = town_field.getText();
+                String post_code = post_code_field.getText();
+                String card_no = card_no_field.getText();
+                String expiration_date = expiration_date_field.getText();
+                String verification_code = verification_code_field.getText();
+                if (name.isEmpty()) {
+                    warning.setText("Uzupełnij imię.");
+                } else if (surname.isEmpty()) {
+                    warning.setText("Uzupełnij nazwisko.");
+                } else if (!check_email(email)) {
+                    warning.setText("Email musi zawierać '@'.");
+                } else if (!check_phone(phone_no)) {
+                    warning.setText("Telefon musi mieć 9 cyfr.");
+                } else if (street.isEmpty()) {
+                    warning.setText("Uzupełnij ulicę.");
+                } else if (building.isEmpty()) {
+                    warning.setText("Uzupełnij numer budynku.");
+                } else if (!check_flat(flat)) {
+                    warning.setText("Mieszkanie musi być liczbą dodatnią.");
+                } else if (city.isEmpty()) {
+                    warning.setText("Uzupełnij miasto");
+                } else if (!check_post_code(post_code)) {
+                    warning.setText("Kod pocztowy musi mieć format XX-XXX.");
+                } else if (!check_card_no(card_no)) {
+                    warning.setText("Numer karty musi mieć 16 cyfr.");
+                } else if (!check_expiration_date(expiration_date)) {
+                    warning.setText("Data ważności karty musi być prawidłowa.");
+                } else if (!check_verification_code(verification_code)) {
+                    warning.setText("Kod CVV/CVC musi mieć 3 cyfry");
+                } else if (!rodo.isSelected()){
+                    warning.setText("Musisz zezwolić na wykozystanie danych.");
+                } else {
+                    new SuccessfulWindow(PaymentWindow.this);
+                }
+            }
+        });
         right_panel.add(r1label);
         right_panel.add(r2label);
         right_panel.add(r3label);
         right_panel.add(pay_button);
+        right_panel.add(warning);
         
         add(right_panel, BorderLayout.EAST);
         
         setVisible(true);
+    }
+
+    private boolean check_email(String given_email) {
+        boolean has_at = false;
+        for (int i = 0; i < given_email.length(); i++) {
+            if (given_email.charAt(i) == '@') {
+                has_at = true;
+            }
+        }
+        return has_at;
+    }
+
+    private boolean check_phone(String given_phone){
+        boolean isok = true;
+        if (given_phone.length() != 9) {
+            isok = false;
+        }
+        for (int i = 0; i < given_phone.length(); i++) {
+            if (!Character.isDigit(given_phone.charAt(i))) {
+                isok = false;
+            }
+        }
+        return isok;
+    }
+
+    private boolean check_flat(String given_flat){
+        boolean isok = true;
+        if (given_flat.isEmpty()) {
+            isok = false;
+        }
+        for (int i = 0; i < given_flat.length(); i++) {
+            if (!Character.isDigit(given_flat.charAt(i))) {
+                isok = false;
+            }
+        }
+        return isok;
+    }
+
+    private boolean check_post_code(String given_post_code){
+        boolean ok = true;
+        if (given_post_code.length() == 6) {
+            if (given_post_code.charAt(2) != '-') {
+                ok = false;
+            } else {
+                for (int i = 0; i < 6; i++) {
+                    if ((i != 2) && (!Character.isDigit(given_post_code.charAt(i)))) {
+                        ok = false;
+                    }
+                }
+            }
+        } else {
+            ok = false;
+        }
+        return ok;
+    }
+
+    private boolean check_card_no(String given_card_no) {
+        boolean isok = true;
+        if (given_card_no.length() != 16) {
+            isok = false;
+        }
+        for (int i = 0; i < given_card_no.length(); i++) {
+            if (!Character.isDigit(given_card_no.charAt(i))) {
+                isok = false;
+            }
+        }
+        return isok;
+    }
+
+    private boolean check_expiration_date(String given_expiration_date) {
+        boolean ok = true;
+        if (given_expiration_date.length() == 5){
+            if (given_expiration_date.charAt(2) != '/'){
+                ok = false;
+            } else {
+                for (int i = 0; i < 5; i++) {
+                    if ((i != 2) && (!Character.isDigit(given_expiration_date.charAt(i)))) {
+                        ok = false;
+                    }
+                }
+                String first_two = given_expiration_date.substring(0, 2);
+                String last_two = given_expiration_date.substring(3, 5);
+                if ((Integer.parseInt(first_two) > 12) || (Integer.parseInt(last_two) <= 23)) {
+                    ok = false;
+                }
+            }
+        } else {
+            ok = false;
+        }
+        return ok;
+    }
+
+    private boolean check_verification_code(String given_verification_code) {
+        boolean isok = true;
+        if (given_verification_code.length() != 3) {
+            isok = false;
+        }
+        for (int i = 0; i < given_verification_code.length(); i++) {
+            if (!Character.isDigit(given_verification_code.charAt(i))) {
+                isok = false;
+            }
+        }
+        return isok;
     }
 }
