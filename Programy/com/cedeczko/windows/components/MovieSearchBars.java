@@ -2,8 +2,10 @@ package com.cedeczko.windows.components;
 
 import javax.swing.*;
 import java.awt.*;
+import com.cedeczko.logic.util.Pair;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 public class MovieSearchBars {
     private JPanel panel;
@@ -11,8 +13,10 @@ public class MovieSearchBars {
     private JTextField movieAuthorTextField;
     private JComboBox<String> movieGenrePicker;
     private JTextField movieYearTextField;
+    private StateChangeListener listener;
 
-    public MovieSearchBars() {
+    public MovieSearchBars(StateChangeListener listener) {
+        this.listener = listener;
         panel = new JPanel();
 
         movieNameTextField = createNameTextField();
@@ -27,20 +31,22 @@ public class MovieSearchBars {
     }
 
     private JTextField createYearTextField() {
-        return new SearchBox("Rok...", "Wyszukaj film po roku wydania", 4);
+        return new SearchBox("Rok...", "Wyszukaj film po roku wydania", 4, listener, 3);
     }
 
     private JTextField createNameTextField() {
-        return new SearchBox("Tytuł...", "Wyszukaj film po tytule", 15);
+        return new SearchBox("Tytuł...", "Wyszukaj film po tytule", 15, listener, 0);
     }
     private JTextField createAuthorTextField() {
-        return new SearchBox("Autor...", "Wyszukaj film po autorze", 15);
+        return new SearchBox("Autor...", "Wyszukaj film po autorze", 15, listener, 1);
     }
     private JComboBox<String> createMovieGenrePicker() {
         String[] genres = {"Action", "Horror", "Thriller", "Comedy"};
         JComboBox<String> moviePicker = new JComboBox<>(genres);
         moviePicker.setSelectedIndex(-1);
-        moviePicker.addActionListener(e -> System.out.println(moviePicker.getSelectedItem()));
+        moviePicker.addActionListener(e -> {
+            listener.onStateChange(new Pair < Integer, String > (2, (String)moviePicker.getSelectedItem()));
+        });
         return moviePicker;
     }
 

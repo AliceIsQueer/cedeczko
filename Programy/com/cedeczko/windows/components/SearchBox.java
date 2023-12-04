@@ -1,23 +1,40 @@
 package com.cedeczko.windows.components;
 
+import com.cedeczko.logic.util.Pair;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class SearchBox extends JTextField {
-    public SearchBox(String defaultText, String tooltip, int columns) {
+    String searchBoxValue;
+    StateChangeListener listener;
+    int fieldNo;
+    boolean initialFocus = true;
+    public SearchBox(String defaultText, String tooltip, int columns, StateChangeListener listener, int fieldNo) {
+        searchBoxValue = "";
+        this.listener = listener;
+        this.fieldNo = fieldNo;
+
         setColumns(columns);
         setText(defaultText);
         setForeground(Color.LIGHT_GRAY);
 
         setToolTipText(tooltip);
-        addActionListener(e -> System.out.println(getText()));
+        addActionListener(e -> {
+            searchBoxValue = getText();
+            listener.onStateChange(new Pair<Integer, String>(fieldNo, searchBoxValue));
+        });
         addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                setText("");
-                setForeground(Color.BLACK);
+                if(initialFocus) {
+                    setText("");
+                    setForeground(Color.BLACK);
+                    initialFocus = false;
+                }
             }
             @Override
             public void focusLost(FocusEvent e) {
