@@ -11,7 +11,7 @@ public class MainWindow {
 
         public MainWindow() {
             initializeFrames();
-            initializeWindow();
+//            initializeWindow();
         }
 
     private void initializeWindow() {

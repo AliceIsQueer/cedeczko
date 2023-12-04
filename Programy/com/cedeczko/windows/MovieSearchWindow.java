@@ -13,7 +13,16 @@ public class MovieSearchWindow {
 
     private MovieSearchBars movieSearchBars;
     private MovieList movieList;
+
     public MovieSearchWindow() {
+        initialize();
+    }
+    public MovieSearchWindow(JFrame previousWindow) {
+        initialize();
+        previousWindow.dispose();
+    }
+
+    private void initialize() {
         frame = new JFrame();
 //        panel.setLayout(new GridLayout(2, 1));
 
@@ -24,22 +33,21 @@ public class MovieSearchWindow {
         frame.setResizable(false);
         frame.setVisible(true);
 
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+
         movieList = new MovieList(frame);
         movieSearchBars = new MovieSearchBars(movieList);
 
-        frame.add(BorderLayout.NORTH, movieSearchBars.getPanel());
-        frame.add(BorderLayout.CENTER, movieList.getPanel());
+
+        centerPanel.add(movieSearchBars.getPanel());
+        centerPanel.add(movieList.getPanel());
+
+        frame.add(BorderLayout.CENTER, centerPanel);
     }
 
 
     public JFrame getFrame() {
         return frame;
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MovieSearchWindow window = new MovieSearchWindow();
-        });
-    }
-
 }
