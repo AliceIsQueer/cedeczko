@@ -5,9 +5,10 @@ import java.util.ArrayList;
 public class MovieListUtils {
     public static ArrayList<String[]> getData() {
         var data = new ArrayList<String[]>();
+        String[] genres = new String[]{"Action", "Horror", "Thriller", "Comedy"};
         //TODO: Remove when actual data can be used
         for (int i = 0; i < 200; i++) {
-            data.add(new String[]{"a" + i, "b" + i, (i % 2 == 0 ? "Horror" : "Action"), "c" + i});
+            data.add(new String[]{"a" + i, "b" + i, genres[i % 4], "c" + i});
         }
         return data;
     }
