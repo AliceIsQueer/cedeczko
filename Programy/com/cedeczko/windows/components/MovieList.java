@@ -1,10 +1,14 @@
 package com.cedeczko.windows.components;
 
 import com.cedeczko.logic.util.Pair;
+import com.cedeczko.windows.ProductWindow;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class MovieList implements StateChangeListener {
@@ -17,11 +21,13 @@ public class MovieList implements StateChangeListener {
     String[] searchParams;
 
     ArrayList<String[]> tableData;
-    public MovieList() {
+    JFrame parentFrame;
+    public MovieList(JFrame frame) {
         panel = new JPanel();
 
         tableData = MovieListUtils.getData();
         this.searchParams = new String[]{"", "", "", ""};
+        parentFrame = frame;
 
         movieTable = createMoviePanel();
         scrollPane = createScrollPane();
@@ -40,6 +46,14 @@ public class MovieList implements StateChangeListener {
         movieTable.getColumnModel().getColumn(1).setPreferredWidth(4 * 800 / 10);
         movieTable.getColumnModel().getColumn(2).setPreferredWidth(4 * 800 / 10);
         movieTable.getColumnModel().getColumn(3).setPreferredWidth(2 * 800 / 20);
+
+        movieTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2)
+                    new ProductWindow(parentFrame);
+            }
+        });
 //        movieTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         return movieTable;
     }
@@ -88,8 +102,8 @@ public class MovieList implements StateChangeListener {
 
         limitTableData();
 
-        for (int i = 0; i < searchParams.length; i++) {
-            System.out.println(i + ": " + searchParams[i]);
-        }
+//        for (int i = 0; i < searchParams.length; i++) {
+//            System.out.println(i + ": " + searchParams[i]);
+//        }
     }
 }

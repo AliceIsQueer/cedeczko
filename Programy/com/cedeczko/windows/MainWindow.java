@@ -23,7 +23,7 @@ public class MainWindow {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        addFrames();
+//        addFrames();
     }
 
     private void initializeFrames() {
@@ -31,6 +31,6 @@ public class MainWindow {
     }
 
     private void addFrames() {
-            frame.add(BorderLayout.NORTH, movieSearchWindow.getPanel());
+//            frame.add(BorderLayout.NORTH, movieSearchWindow.getFrame());
     }
 }
