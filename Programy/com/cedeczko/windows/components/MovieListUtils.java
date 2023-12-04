@@ -1,6 +1,11 @@
 package com.cedeczko.windows.components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class MovieListUtils {
     public static ArrayList<String[]> getData() {
@@ -18,18 +23,8 @@ public class MovieListUtils {
     public static ArrayList<String[]> limitTableData(String[] searchParams, ArrayList<String[]> data) {
         ArrayList<String[]> newData = new ArrayList<>();
 
-        for(var row : data) {
-            boolean addRow = true;
-            for (int i = 0; i < searchParams.length; i++) {
-                if (!row[i].contains(searchParams[i])) {
-                    addRow = false;
-                    break;
-                }
-            }
-            if (addRow)
-                newData.add(row);
-        }
-
-        return newData;
+        return (ArrayList<String[]>)data.stream()
+                .filter(row -> IntStream.range(0, row.length).allMatch(i -> row[i].contains(searchParams[i])))
+                .collect(Collectors.toList());
     }
 }
