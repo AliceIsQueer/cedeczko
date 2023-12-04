@@ -36,6 +36,7 @@ public class ProductWindow extends JFrame {
         up_panel.setPreferredSize(new Dimension(wide, upper_high));
         // przycisk powrót
         JButton return_button = new JButton("<--- Powrót");
+        return_button.addActionListener(e -> new MovieSearchWindow());
         up_panel.add(return_button);
         // przycisk koszyk
         JButton basket_button = new JButton("Twój koszyk");
