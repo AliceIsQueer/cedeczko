@@ -1,11 +1,7 @@
-package com.cedeczko.app.windows.components;
+package com.cedeczko.app.logic.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class MovieListUtils {
     public static ArrayList<String[]> getData() {
@@ -20,11 +16,9 @@ public class MovieListUtils {
     public static String[] getFields() {
         return new String[]{"Tytuł", "Autor", "Gatunek", "Rok"};
     }
-    public static ArrayList<String[]> limitTableData(String[] searchParams, ArrayList<String[]> data) {
-        ArrayList<String[]> newData = new ArrayList<>();
-
+    public static ArrayList<String[]> limitTableData(SearchParams searchParams, ArrayList<String[]> data) {
         return (ArrayList<String[]>)data.stream()
-                .filter(row -> IntStream.range(0, row.length).allMatch(i -> row[i].contains(searchParams[i])))
+                .filter(searchParams::listIncludesParams)
                 .collect(Collectors.toList());
     }
 }
