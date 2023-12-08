@@ -1,8 +1,8 @@
-package com.cedeczko.app.windows;
+package com.cedeczko.app.windows.MovieSearchWindow;
 
 import com.cedeczko.app.logic.constants.WindowConstants;
-import com.cedeczko.app.windows.components.MovieList;
-import com.cedeczko.app.windows.components.MovieSearchBars;
+import com.cedeczko.app.windows.MovieSearchWindow.components.MovieList;
+import com.cedeczko.app.windows.MovieSearchWindow.components.MovieSearchBars;
 
 import javax.swing.*;
 import java.awt.*;

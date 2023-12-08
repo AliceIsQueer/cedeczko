@@ -1,5 +1,7 @@
 package com.cedeczko.app.windows;
 
+import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;

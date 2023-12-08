@@ -1,4 +1,4 @@
-package com.cedeczko.app.windows.components;
+package com.cedeczko.app.windows.MovieSearchWindow.components;
 
 import com.cedeczko.app.logic.util.Pair;
 

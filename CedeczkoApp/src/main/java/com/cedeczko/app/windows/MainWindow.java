@@ -1,5 +1,7 @@
 package com.cedeczko.app.windows;
 
+import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
+
 import javax.swing.*;
 
 public class MainWindow {
