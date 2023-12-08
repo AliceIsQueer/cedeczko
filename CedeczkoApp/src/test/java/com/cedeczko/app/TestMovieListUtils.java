@@ -1,6 +1,7 @@
 package com.cedeczko.app;
 
-import com.cedeczko.app.windows.components.MovieListUtils;
+import com.cedeczko.app.logic.util.MovieListUtils;
+import com.cedeczko.app.logic.util.SearchParams;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,7 +24,10 @@ class HelperClass {
 public class TestMovieListUtils {
     @Test
     public void testStandardInput() {
-        String[] searchParams = {"a", "b", "c"};
+        SearchParams searchParams = new SearchParams(3);
+        searchParams.set(0, "a");
+        searchParams.set(1, "b");
+        searchParams.set(2, "c");
         ArrayList<String[]> values = new ArrayList<>();
         values.add(new String[]{"aaab", "cccc", "cddc"});
         values.add(new String[]{"aaaab", "bbbbbc", "ccccd"});
@@ -37,7 +41,7 @@ public class TestMovieListUtils {
     }
     @Test
     public void testEmptyFilter() {
-        String[] searchParams = {"", "", ""};
+        SearchParams searchParams = new SearchParams(3);
         ArrayList<String[]> values = new ArrayList<>();
         values.add(new String[]{"aaab", "cccc", "cddc"});
         values.add(new String[]{"aaaab", "bbbbbc", "ccccd"});
