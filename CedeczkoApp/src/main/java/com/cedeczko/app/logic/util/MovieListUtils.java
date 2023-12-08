@@ -14,7 +14,7 @@ public class MovieListUtils {
         return data;
     }
     public static String[] getFields() {
-        return new String[]{"Tytuł", "Autor", "Gatunek", "Rok"};
+        return new String[]{"Tytuł", "Reżyser", "Gatunek", "Rok"};
     }
     public static ArrayList<String[]> limitTableData(SearchParams searchParams, ArrayList<String[]> data) {
         return (ArrayList<String[]>)data.stream()

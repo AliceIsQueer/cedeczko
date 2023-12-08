@@ -36,7 +36,7 @@ public class MovieSearchBars {
         return new SearchBox("Tytuł...", "Wyszukaj film po tytule", 15, listener, 0);
     }
     private JTextField createAuthorTextField() {
-        return new SearchBox("Autor...", "Wyszukaj film po autorze", 15, listener, 1);
+        return new SearchBox("Reżyser...", "Wyszukaj film po autorze", 15, listener, 1);
     }
     private JComboBox<String> createMovieGenrePicker() {
         String[] genres = {"", "Action", "Horror", "Thriller", "Comedy"};
