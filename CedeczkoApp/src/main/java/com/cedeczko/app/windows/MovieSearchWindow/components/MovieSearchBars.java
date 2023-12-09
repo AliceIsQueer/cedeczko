@@ -6,13 +6,13 @@ import java.awt.*;
 import com.cedeczko.app.logic.util.Pair;
 
 public class MovieSearchBars {
-    private JPanel panel;
-    private JTextField movieNameTextField;
-    private JTextField movieAuthorTextField;
-    private JComboBox<String> movieGenrePicker;
-    private JTextField movieYearTextField;
-    private ExtraSearchArgs extraSearchArgs;
-    private StateChangeListener listener;
+    private final JPanel panel;
+    private final JTextField movieNameTextField;
+    private final JTextField movieAuthorTextField;
+    private final JComboBox<String> movieGenrePicker;
+    private final JTextField movieYearTextField;
+    private final ExtraSearchArgs extraSearchArgs;
+    private final StateChangeListener listener;
 
     public MovieSearchBars(StateChangeListener listener) {
         this.listener = listener;
