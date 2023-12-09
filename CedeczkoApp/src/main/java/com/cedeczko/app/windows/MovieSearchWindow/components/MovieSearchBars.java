@@ -28,24 +28,19 @@ public class MovieSearchBars {
         panel.add(BorderLayout.NORTH, movieYearTextField);
     }
 
-    private JTextField createYearTextField() {
-        return new SearchBox("Rok...", "Wyszukaj film po roku wydania", 4, listener, 3);
-    }
-
     private JTextField createNameTextField() {
         return new SearchBox("Tytuł...", "Wyszukaj film po tytule", 15, listener, 0);
     }
     private JTextField createAuthorTextField() {
         return new SearchBox("Reżyser...", "Wyszukaj film po autorze", 15, listener, 1);
+
     }
     private JComboBox<String> createMovieGenrePicker() {
-        String[] genres = {"", "Action", "Horror", "Thriller", "Comedy"};
-        JComboBox<String> moviePicker = new JComboBox<>(genres);
-        moviePicker.setSelectedIndex(-1);
-        moviePicker.addActionListener(e -> {
-            listener.onStateChange(new Pair< Integer, String >(2, (String)moviePicker.getSelectedItem()));
-        });
-        return moviePicker;
+        return new OptionPicker(new String[]{"Action", "Horror", "Thriller", "Comedy"}, listener, 2);
+
+    }
+    private JTextField createYearTextField() {
+        return new SearchBox("Rok...", "Wyszukaj film po roku wydania", 4, listener, 3);
     }
 
     public JPanel getPanel() {
