@@ -1,6 +1,8 @@
-package com.cedeczko.app.windows.components;
+package com.cedeczko.app.windows.MovieSearchWindow.components;
 
+import com.cedeczko.app.logic.util.MovieListUtils;
 import com.cedeczko.app.logic.util.Pair;
+import com.cedeczko.app.logic.util.SearchParams;
 import com.cedeczko.app.windows.ProductWindow;
 
 import javax.swing.*;
@@ -17,7 +19,7 @@ public class MovieList implements StateChangeListener {
     JTable movieTable;
     JScrollPane scrollPane;
 
-    String[] searchParams;
+    SearchParams searchParams;
 
     ArrayList<String[]> tableData;
     JFrame parentFrame;
@@ -25,7 +27,7 @@ public class MovieList implements StateChangeListener {
         panel = new JPanel();
 
         tableData = MovieListUtils.getData();
-        this.searchParams = new String[]{"", "", "", ""};
+        this.searchParams = new SearchParams(4);
         parentFrame = frame;
 
         movieTable = createMoviePanel();
@@ -97,12 +99,8 @@ public class MovieList implements StateChangeListener {
     public void onStateChange(Pair<Integer, String> newState) {
         int index = newState.getKey();
         String value = newState.getValue();
-        searchParams[index] = value;
+        searchParams.set(index, value);
 
         limitTableData();
-
-//        for (int i = 0; i < searchParams.length; i++) {
-//            System.out.println(i + ": " + searchParams[i]);
-//        }
     }
 }
