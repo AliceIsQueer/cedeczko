@@ -5,6 +5,8 @@ import com.cedeczko.app.errors.EmptyStringError;
 import com.cedeczko.app.errors.NegativeValueError;
 import com.cedeczko.app.errors.WrongPostalCodeError;
 
+import java.util.regex.Pattern;
+
 public class Customer {
     private String name;
     private String surname;
@@ -27,21 +29,8 @@ public class Customer {
     }
 
     private boolean check_postal_code(String given_postal_code) {
-      boolean ok = true;
-      if (given_postal_code.length() == 6) {
-          if (given_postal_code.charAt(2) != '-') {
-              ok = false;
-          } else {
-              for (int i = 0; i < 6; i++) {
-                  if ((i != 2) && (!Character.isDigit(given_postal_code.charAt(i)))) {
-                      ok = false;
-                  }
-              }
-          }
-      } else {
-          ok = false;
-      }
-      return ok;
+        Pattern postalCodePattern = Pattern.compile("^\\d\\d-\\d\\d\\d$");
+        return postalCodePattern.matcher(given_postal_code).find();
     }
 
     private boolean check_email(String given_email) {
