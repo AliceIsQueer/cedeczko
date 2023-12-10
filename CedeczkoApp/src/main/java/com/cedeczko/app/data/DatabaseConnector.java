@@ -1,22 +1,23 @@
 package com.cedeczko.app.data;
 
 import com.cedeczko.app.logic.Film;
-import com.mysql.jdbc.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseConnector {
+public class DatabaseConnector implements Database {
     private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
+    String url = "jdbc:mysql://127.0.0.1:13306/cedeczko?"
+               + "user=app&password=password";
+
     public void readDataBase() {
         try {
             Connection connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost/cedeczko?"
-                            + "user=app&password=password");
+                    .getConnection(url);
 
             Statement statement = connect.createStatement();
             // Result set get the result of the SQL query
@@ -55,12 +56,12 @@ public class DatabaseConnector {
         }
     }
 
+    @Override
     public ArrayList<Film> getFilms() {
         ArrayList<Film> films = new ArrayList<>();
         try {
             connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost/cedeczko?"
-                            + "user=app&password=password");
+                    .getConnection(url);
 
             statement = connect.createStatement();
             resultSet = statement.executeQuery("select * from cedeczko.movies");
@@ -73,7 +74,7 @@ public class DatabaseConnector {
                 int price = resultSet.getInt("price");
                 int year = resultSet.getInt("release_year");
                 String description = resultSet.getString("description");
-                ArrayList<String> genres = getMovieGenres(movie_id);
+                ArrayList<String> genres = getFilmGenres(movie_id);
                 String director_name = getDirectorName(director_id);
 
                 Film film = new Film(title, director_name, year, price, genres, description, null);
@@ -88,11 +89,10 @@ public class DatabaseConnector {
         return films;
     }
 
-    private ArrayList<String> getMovieGenres(int movie_id) {
+    private ArrayList<String> getFilmGenres(int movie_id) {
         try {
             Connection connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost/cedeczko?"
-                            + "user=app&password=password");
+                    .getConnection(url);
 
             Statement statement = connect.createStatement();
             String query = "SELECT g.name FROM cedeczko.movies m\n" +
@@ -120,8 +120,7 @@ public class DatabaseConnector {
     private String getDirectorName(int director_id) {
         try {
             Connection connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost/cedeczko?"
-                            + "user=app&password=password");
+                    .getConnection(url);
 
             Statement statement = connect.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT name, surname FROM cedeczko.directors WHERE director_id = " + director_id + ";");
@@ -133,12 +132,12 @@ public class DatabaseConnector {
         }
     }
 
+    @Override
     public ArrayList<String> getGenres() {
         ArrayList<String> genres = new ArrayList<>();
         try {
             connect = DriverManager
-                            .getConnection("jdbc:mysql://localhost/cedeczko?"
-                                    + "user=app&password=password");
+                            .getConnection(url);
 
             statement = connect.createStatement();
             resultSet = statement.executeQuery("select name from cedeczko.genres");

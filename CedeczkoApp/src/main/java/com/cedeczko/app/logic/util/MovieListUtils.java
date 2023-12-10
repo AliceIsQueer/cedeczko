@@ -1,5 +1,6 @@
 package com.cedeczko.app.logic.util;
 
+import com.cedeczko.app.data.Database;
 import com.cedeczko.app.data.DatabaseConnector;
 import com.cedeczko.app.logic.Film;
 
@@ -7,8 +8,9 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class MovieListUtils {
+    static Database db = new DatabaseConnector();
+
     public static ArrayList<String[]> getData() {
-        DatabaseConnector db = new DatabaseConnector();
         var data = new ArrayList<String[]>();
         ArrayList<Film> films = db.getFilms();
         for(var film: films) {
@@ -23,7 +25,6 @@ public class MovieListUtils {
     }
 
     public static ArrayList<String> getGenres() {
-        DatabaseConnector db = new DatabaseConnector();
         ArrayList<String> genres = db.getGenres();
         genres.add(0, "");
         return genres;
