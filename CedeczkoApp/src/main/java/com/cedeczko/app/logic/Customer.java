@@ -16,38 +16,14 @@ public class Customer {
     private String email;
 
     public Customer(String given_name, String given_surname, String given_street, String given_building, int given_flat, String given_postal_code, String given_city, String given_email) {
-        if (given_name == "") {
-            throw new EmptyStringError("Name cannot be empty.");
-        }
-        this.name = given_name;
-        if (given_surname == "") {
-            throw new EmptyStringError("Surname cannot be empty.");
-        }
-        this.surname = given_surname;
-        if (given_street == "") {
-            throw new EmptyStringError("Street cannot be empty.");
-        }
-        this.street = given_street;
-        if (given_building == "") {
-            throw new EmptyStringError("Building cannot be empty.");
-        }
-        this.building = given_building;
-        if (given_flat <= 0) {
-            throw new NegativeValueError("Flat number has to be positive.");
-        }
-        this.flat = given_flat;
-        if (!check_postal_code(given_postal_code)) {
-            throw new WrongPostalCodeError("Postal code has to have XX-XXX format (X - integer)");
-        }
-        this.postal_code = given_postal_code;
-        if (given_city == "") {
-            throw new EmptyStringError("Building cannot be empty.");
-        }
-        this.city = given_city;
-        if (!check_email(given_email)) {
-            throw new WrongEmailError("Email has to have @");
-        }
-        this.email = given_email;
+        set_name(given_name);
+        set_surname(given_surname);
+        set_street(given_street);
+        set_building(given_building);
+        set_flat(given_flat);
+        set_postal_code(given_postal_code);
+        set_city(given_city);
+        set_email(given_email);
     }
 
     private boolean check_postal_code(String given_postal_code) {
@@ -146,7 +122,7 @@ public class Customer {
 
     public void set_flat(int new_flat){
         if (new_flat <= 0) {
-              throw new EmptyStringError("Flat number has to be positive.");
+              throw new NegativeValueError("Flat number has to be positive.");
         }
         this.flat = new_flat;
     }
