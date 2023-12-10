@@ -20,11 +20,11 @@ public class Film {
 
     public Film(String g_title, String g_director, int g_year, int g_price, List<String> g_genres, String g_description,
             SerialBlob g_poster) {
-        if (g_title == "") {
+        if (g_title.isEmpty()) {
             throw new EmptyStringError("The title canot be empty.");
         }
         this.title = g_title;
-        if (g_director == "") {
+        if (g_director.isEmpty()) {
             throw new EmptyStringError("The director's name canot be empty.");
         }
         this.director = g_director;
@@ -37,7 +37,7 @@ public class Film {
             throw new WrongPriceError("Price must be positive.");
         }
         price = g_price;
-        if (g_genres.size() == 0) {
+        if (g_genres.isEmpty()) {
             throw new NoGenresError("Films must belong to at least one genre.");
         }
         genres = g_genres;
