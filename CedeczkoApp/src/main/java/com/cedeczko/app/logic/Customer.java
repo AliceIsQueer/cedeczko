@@ -93,28 +93,28 @@ public class Customer {
     }
 
     public void set_name(String new_name){
-        if (new_name == "") {
+        if (new_name.isEmpty()) {
             throw new EmptyStringError("Name cannot be empty.");
         }
         this.name = new_name;
     }
     
     public void set_surname(String new_surname){
-        if (new_surname == "") {
+        if (new_surname.isEmpty()) {
               throw new EmptyStringError("Surname cannot be empty.");
         }
         this.surname = new_surname;
     }
     
     public void set_street(String new_street){
-        if (new_street == "") {
+        if (new_street.isEmpty()) {
               throw new EmptyStringError("Street cannot be empty.");
         }
         this.street = new_street;
     }
 
     public void set_building(String new_building){
-        if (new_building == "") {
+        if (new_building.isEmpty()) {
               throw new EmptyStringError("Building cannot be empty.");
         }
         this.building = new_building;
@@ -135,7 +135,7 @@ public class Customer {
     }
 
     public void set_city(String new_city){
-        if (new_city == "") {
+        if (new_city.isEmpty()) {
               throw new EmptyStringError("Building cannot be empty.");
         }
         this.city = new_city;
