@@ -1,6 +1,5 @@
-package com.cedeczko.app;
+package com.cedeczko.app.data;
 
-import com.cedeczko.app.data.DatabaseConnector;
 import com.cedeczko.app.logic.Film;
 import org.junit.Test;
 

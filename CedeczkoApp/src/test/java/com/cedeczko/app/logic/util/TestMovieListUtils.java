@@ -1,14 +1,10 @@
-package com.cedeczko.app;
+package com.cedeczko.app.logic.util;
 
-import com.cedeczko.app.logic.util.MovieListUtils;
-import com.cedeczko.app.logic.util.SearchParams;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 class HelperClass {
