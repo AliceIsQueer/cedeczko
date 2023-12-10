@@ -30,20 +30,20 @@ public class TestCustomer {
 
     @Test(expected = EmptyStringError.class)
     public void testSetNameEmpty() {
-        Customer customer = new Customer("John", "Smith", "Green St.", "123", 10, "12-345", "Warsaw", "john@example.com");
+        Customer customer = new Customer("John", "Smith", "Green St.", "123", 10, "12-345", "Warsaw", "john-smith@example.com");
         customer.set_name("");
     }
 
     @Test
     public void testSetSurname() {
-        Customer customer = new Customer("John", "Smith", "Green St.", "123", 10, "12-345", "Warsaw", "john@example.com");
+        Customer customer = new Customer("John", "Smith", "Green St.", "123", 10, "12-345", "Warsaw", "john3@example.com");
         customer.set_surname("NewSurname");
         assertEquals("NewSurname", customer.get_surname());
     }
 
     @Test(expected = EmptyStringError.class)
     public void testSetSurnameEmpty() {
-        Customer customer = new Customer("John", "Smith", "Green St.", "123", 10, "12-345", "Warsaw", "john@example.com");
+        Customer customer = new Customer("John", "Smith", "Green St.", "123", 10, "12-345", "Warsaw", "john@example.gmail.com");
         customer.set_surname("");
     }
 
