@@ -75,7 +75,7 @@ public class Film {
 
     // jedyne atrybuty, które mogą się zmieniać
     public void setPrice(int new_price) {
-        if (price > 0) {
+        if (new_price > 0) {
             this.price = new_price;
         }
     }
