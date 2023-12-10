@@ -43,7 +43,6 @@ public class DatabaseConnector implements Database {
 
             while (resultSet.next()) {
                 int movie_id = resultSet.getInt("movie_id");
-                System.out.println(movie_id);
                 String title = resultSet.getString("title");
                 int director_id = resultSet.getInt("director_id");
                 int price = resultSet.getInt("price");

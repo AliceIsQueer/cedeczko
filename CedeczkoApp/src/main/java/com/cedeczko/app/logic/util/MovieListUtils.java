@@ -26,7 +26,6 @@ public class MovieListUtils {
             }
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Am here");
             String[] genres = new String[]{"Action", "Horror", "Thriller", "Comedy"};
             for (int i = 0; i < 30; i++) {
                 data.add(new String[]{"a" + i, "b" + (i % 10), genres[i % 4], "c" + i});
