@@ -8,36 +8,11 @@ import java.util.ArrayList;
 public class DatabaseConnector implements Database {
     private Connection connect = null;
     private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
     String url = "jdbc:mysql://127.0.0.1:13306/cedeczko?"
                + "user=app&password=password";
 
-    public void readDataBase() {
-        try {
-            Connection connect = DriverManager
-                    .getConnection(url);
-
-            Statement statement = connect.createStatement();
-            // Result set get the result of the SQL query
-            ResultSet resultSet = statement
-                    .executeQuery("select * from cedeczko.directors");
-
-            while (resultSet.next()) {
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
-
-                System.out.println(name + " " + surname);
-            }
-
-
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            close();
-        }
-    }
     private void close() {
         try {
             if (resultSet != null) {
@@ -52,12 +27,12 @@ public class DatabaseConnector implements Database {
                 connect.close();
             }
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
     }
 
     @Override
-    public ArrayList<Film> getFilms() {
+    public ArrayList<Film> getFilms() throws SQLException {
         ArrayList<Film> films = new ArrayList<>();
         try {
             connect = DriverManager
@@ -83,6 +58,7 @@ public class DatabaseConnector implements Database {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            throw e;
         } finally {
             close();
         }
@@ -133,7 +109,7 @@ public class DatabaseConnector implements Database {
     }
 
     @Override
-    public ArrayList<String> getGenres() {
+    public ArrayList<String> getGenres() throws SQLException {
         ArrayList<String> genres = new ArrayList<>();
         try {
             connect = DriverManager
@@ -146,6 +122,7 @@ public class DatabaseConnector implements Database {
                 genres.add(resultSet.getString("name"));
         } catch(Exception e) {
             System.out.println(e.getMessage());
+            throw e;
         } finally {
             close();
         }
