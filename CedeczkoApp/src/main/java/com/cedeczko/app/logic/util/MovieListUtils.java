@@ -1,17 +1,32 @@
 package com.cedeczko.app.logic.util;
 
+import com.cedeczko.app.data.DatabaseConnector;
+import com.cedeczko.app.logic.Film;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class MovieListUtils {
     public static ArrayList<String[]> getData() {
+        DatabaseConnector db = new DatabaseConnector();
         var data = new ArrayList<String[]>();
-        String[] genres = new String[]{"Action", "Horror", "Thriller", "Comedy"};
-        //TODO: Remove when actual data can be used
-        for (int i = 0; i < 200; i++) {
-            data.add(new String[]{"a" + i, "b" + i, genres[i % 4], "c" + i});
+        ArrayList<Film> films = db.getFilms();
+        for(var film: films) {
+            String title = film.getTitle();
+            String director = film.getDirector();
+            String genres = film.getGenres().toString();
+            genres = genres.substring(1, genres.length()-1);
+            String year = Integer.toString(film.getYear());
+            data.add(new String[]{title, director, genres, year});
         }
         return data;
+    }
+
+    public static ArrayList<String> getGenres() {
+        DatabaseConnector db = new DatabaseConnector();
+        ArrayList<String> genres = db.getGenres();
+        genres.add(0, "");
+        return genres;
     }
     public static String[] getFields() {
         return new String[]{"Tytuł", "Reżyser", "Gatunek", "Rok"};
