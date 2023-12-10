@@ -33,14 +33,8 @@ public class TestFilm {
     }
 
     @Test
-    public void testSetters() {
+    public void testPosterSetter() {
         Film film = new Film("Original Title", "Original Director", 2022, 100, List.of("Action"), "Original Description", null);
-
-        film.setPrice(150);
-        assertEquals(150, film.getPrice());
-
-        film.setDescription("New Description");
-        assertEquals("New Description", film.getDescription());
 
         SerialBlob newPoster = null;
         try {
@@ -53,11 +47,26 @@ public class TestFilm {
     }
 
     @Test
+    public void testPriceSetter() {
+        Film film = new Film("Original Title", "Original Director", 2022, 100, List.of("Action"), "Original Description", null);
+
+        film.setPrice(150);
+        assertEquals(150, film.getPrice());
+    }
+
+    @Test
+    public void testDescriptionSetter() {
+        Film film = new Film("Original Title", "Original Director", 2022, 100, List.of("Action"), "Original Description", null);
+
+        film.setDescription("New Description");
+        assertEquals("New Description", film.getDescription());
+    }
+    @Test
     public void testSetPriceWithNegativeValue() {
         Film film = new Film("Title", "Director", 2022, 100, List.of("Action"), "Description", null);
 
         film.setPrice(-50);
-        assertEquals(100, film.getPrice()); // Price should remain unchanged
+        assertEquals(100, film.getPrice());
     }
 
     @Test(expected = EmptyStringError.class)
