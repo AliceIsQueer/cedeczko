@@ -6,11 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 public class OptionPicker extends JComboBox<String> {
     StateChangeListener listener;
     int fieldNo;
-    public OptionPicker(String[] options, StateChangeListener listener, int fieldNo) {
+    public OptionPicker(ArrayList<String> options, StateChangeListener listener, int fieldNo) {
         this.listener = listener;
         this.fieldNo = fieldNo;
 
@@ -21,7 +22,7 @@ public class OptionPicker extends JComboBox<String> {
         });
     }
 
-    void addOptions(String[] options) {
+    void addOptions(ArrayList<String> options) {
         for (var option : options)
             addItem(option);
     }

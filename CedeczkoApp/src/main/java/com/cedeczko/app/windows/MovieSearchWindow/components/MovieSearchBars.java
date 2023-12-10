@@ -2,7 +2,9 @@ package com.cedeczko.app.windows.MovieSearchWindow.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
+import com.cedeczko.app.logic.util.MovieListUtils;
 import com.cedeczko.app.logic.util.Pair;
 
 public class MovieSearchBars {
@@ -36,7 +38,8 @@ public class MovieSearchBars {
 
     }
     private JComboBox<String> createMovieGenrePicker() {
-        return new OptionPicker(new String[]{"Action", "Horror", "Thriller", "Comedy"}, listener, 2);
+        ArrayList<String> genres = MovieListUtils.getGenres();
+        return new OptionPicker(genres, listener, 2);
 
     }
     private JTextField createYearTextField() {
