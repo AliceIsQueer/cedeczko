@@ -60,7 +60,7 @@ public class TestFilm {
         film.setDescription("New Description");
         assertEquals("New Description", film.getDescription());
     }
-    @Test
+    @Test(expected = WrongPriceError.class)
     public void testSetPriceWithNegativeValue() {
         Film film = new Film("Title", "Director", 2022, 100, List.of("Action"), "Description", null);
 

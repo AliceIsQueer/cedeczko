@@ -33,10 +33,7 @@ public class Film {
         } else {
             throw new WrongReleaseYearError("The release year is either too early or later than current year.");
         }
-        if (g_price <= 0) {
-            throw new WrongPriceError("Price must be positive.");
-        }
-        price = g_price;
+        setPrice(g_price);
         if (g_genres.isEmpty()) {
             throw new NoGenresError("Films must belong to at least one genre.");
         }
@@ -75,9 +72,10 @@ public class Film {
 
     // jedyne atrybuty, które mogą się zmieniać
     public void setPrice(int new_price) {
-        if (new_price > 0) {
-            this.price = new_price;
+        if (new_price <= 0) {
+            throw new WrongPriceError("Price must be positive.");
         }
+        price = new_price;
     }
 
     public void setDescription(String new_description) {
