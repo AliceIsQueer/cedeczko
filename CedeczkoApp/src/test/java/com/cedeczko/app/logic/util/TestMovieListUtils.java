@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 class HelperClass {
     static public boolean areStringArraysSame(String[] first, String[] second) {
@@ -45,5 +45,31 @@ public class TestMovieListUtils {
         ArrayList<String[]> filteredValues = MovieListUtils.limitTableData(searchParams, values);
 
         assertTrue(HelperClass.areArrayListsSame(values, filteredValues));
+    }
+
+    @Test
+    public void testGetFields() {
+        String[] expectedAns = new String[]{"Tytuł", "Reżyser", "Gatunek", "Rok"};
+
+        assertArrayEquals(expectedAns, MovieListUtils.getFields());
+    }
+
+    @Test
+    public void testGetGenresWithDb() {
+        ArrayList<String> genres = MovieListUtils.getGenres();
+
+        assertEquals("Action", genres.get(1));
+        assertEquals("Biography", genres.get(2));
+
+        assertEquals("Horror", genres.get(15));
+        assertEquals("Adventure", genres.get(16));
+    }
+
+    @Test
+    public void testGetDataWithDb() {
+        ArrayList<String[]> movies = MovieListUtils.getData();
+
+        assertEquals("The Shawshank Redemption", movies.get(0)[0]);
+        assertEquals("Frank Darabont", movies.get(0)[1]);
     }
 }
