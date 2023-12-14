@@ -10,11 +10,11 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.time.LocalDate;
 
 public class Film {
-    private String title;
-    private String director;
-    private int year;
+    final private String title;
+    final private String director;
+    final private int year;
     private int price; // w groszach
-    private List<String> genres;
+    final private List<String> genres;
     private String description;
     private SerialBlob poster;
 
