@@ -6,7 +6,7 @@ public class Basket {
     private List<String> products;
 
     public Basket(List<String> given_products) {
-      this.products = given_products;
+      set_products(given_products);
     }
 
     //nwm czy się przyda, ale zostawiam
