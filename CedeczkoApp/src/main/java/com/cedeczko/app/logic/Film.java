@@ -38,8 +38,8 @@ public class Film {
             throw new NoGenresError("Films must belong to at least one genre.");
         }
         genres = g_genres;
-        description = g_description;
-        poster = g_poster;
+        setDescription(g_description);
+        setPoster(g_poster);
     } // g = given
 
     public String getTitle() {
