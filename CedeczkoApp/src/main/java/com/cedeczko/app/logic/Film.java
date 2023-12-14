@@ -10,21 +10,21 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.time.LocalDate;
 
 public class Film {
-    private String title;
-    private String director;
-    private int year;
+    final private String title;
+    final private String director;
+    final private int year;
     private int price; // w groszach
-    private List<String> genres;
+    final private List<String> genres;
     private String description;
     private SerialBlob poster;
 
     public Film(String g_title, String g_director, int g_year, int g_price, List<String> g_genres, String g_description,
             SerialBlob g_poster) {
-        if (g_title == "") {
+        if (g_title.isEmpty()) {
             throw new EmptyStringError("The title canot be empty.");
         }
         this.title = g_title;
-        if (g_director == "") {
+        if (g_director.isEmpty()) {
             throw new EmptyStringError("The director's name canot be empty.");
         }
         this.director = g_director;
@@ -33,16 +33,13 @@ public class Film {
         } else {
             throw new WrongReleaseYearError("The release year is either too early or later than current year.");
         }
-        if (g_price <= 0) {
-            throw new WrongPriceError("Price must be positive.");
-        }
-        price = g_price;
-        if (g_genres.size() == 0) {
+        setPrice(g_price);
+        if (g_genres.isEmpty()) {
             throw new NoGenresError("Films must belong to at least one genre.");
         }
         genres = g_genres;
-        description = g_description;
-        poster = g_poster;
+        setDescription(g_description);
+        setPoster(g_poster);
     } // g = given
 
     public String getTitle() {
@@ -75,9 +72,10 @@ public class Film {
 
     // jedyne atrybuty, które mogą się zmieniać
     public void setPrice(int new_price) {
-        if (new_price > 0) {
-            this.price = new_price;
+        if (new_price <= 0) {
+            throw new WrongPriceError("Price must be positive.");
         }
+        price = new_price;
     }
 
     public void setDescription(String new_description) {
