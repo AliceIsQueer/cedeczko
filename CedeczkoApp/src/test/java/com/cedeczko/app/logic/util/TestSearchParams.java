@@ -20,7 +20,7 @@ public class TestSearchParams {
         searchParams.set(0, "param1");
         searchParams.set(1, "param2");
         searchParams.set(2, "param3");
-        searchParams.set(2, "param4");
+        searchParams.set(3, "param4");
 
         assertEquals("param1", searchParams.get(0));
         assertEquals("param2", searchParams.get(1));
