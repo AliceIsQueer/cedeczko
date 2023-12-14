@@ -13,33 +13,33 @@ public class TestBasket {
     @Test
     public void testAddProduct() {
         Basket basket = new Basket(new ArrayList<>());
-        basket.add_product("Inception");
-        basket.add_product("The Shawshank Redemption");
+        basket.addProduct("Inception");
+        basket.addProduct("The Shawshank Redemption");
 
         List<String> expectedProducts = Arrays.asList("Inception", "The Shawshank Redemption");
-        assertEquals(expectedProducts, basket.get_products());
+        assertEquals(expectedProducts, basket.getProducts());
     }
 
     @Test
     public void testRemoveProduct() {
         Basket basket = new Basket(new ArrayList<>());
-        basket.add_product("Inception");
-        basket.add_product("The Shawshank Redemption");
-        basket.add_product("The Godfather");
+        basket.addProduct("Inception");
+        basket.addProduct("The Shawshank Redemption");
+        basket.addProduct("The Godfather");
 
-        basket.remove_product("The Shawshank Redemption");
+        basket.removeProduct("The Shawshank Redemption");
 
         List<String> expectedProducts = Arrays.asList("Inception", "The Godfather");
-        assertEquals(expectedProducts, basket.get_products());
+        assertEquals(expectedProducts, basket.getProducts());
     }
 
     @Test
     public void testGetProducts() {
         Basket basket = new Basket(new ArrayList<>());
-        basket.add_product("Inception");
-        basket.add_product("The Shawshank Redemption");
+        basket.addProduct("Inception");
+        basket.addProduct("The Shawshank Redemption");
 
-        List<String> actualProducts = basket.get_products();
+        List<String> actualProducts = basket.getProducts();
         List<String> expectedProducts = Arrays.asList("Inception", "The Shawshank Redemption");
 
         assertEquals(expectedProducts, actualProducts);
@@ -48,12 +48,12 @@ public class TestBasket {
     @Test
     public void testSetProducts() {
         Basket basket = new Basket(new ArrayList<>());
-        basket.add_product("Inception");
-        basket.add_product("The Shawshank Redemption");
+        basket.addProduct("Inception");
+        basket.addProduct("The Shawshank Redemption");
 
         List<String> newProducts = Arrays.asList("The Godfather", "Pulp Fiction");
-        basket.set_products(newProducts);
+        basket.setProducts(newProducts);
 
-        assertEquals(newProducts, basket.get_products());
+        assertEquals(newProducts, basket.getProducts());
     }
 }
