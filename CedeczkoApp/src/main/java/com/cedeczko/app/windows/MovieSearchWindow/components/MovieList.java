@@ -6,12 +6,8 @@ import com.cedeczko.app.logic.util.SearchParams;
 import com.cedeczko.app.windows.ProductWindow;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MovieList implements StateChangeListener {
@@ -23,13 +19,15 @@ public class MovieList implements StateChangeListener {
 
     SearchParams searchParams;
 
-    ArrayList<String[]> tableData;
+    ArrayList<String[]> fullTableData;
+    ArrayList<String[]> displayedTableData;
     JFrame parentFrame;
 
     public MovieList(JFrame frame) {
         panel = new JPanel();
 
-        tableData = MovieListUtils.getData();
+        fullTableData = MovieListUtils.getData();
+        displayedTableData = fullTableData;
         this.searchParams = new SearchParams(4);
         parentFrame = frame;
 
@@ -43,7 +41,7 @@ public class MovieList implements StateChangeListener {
     private JTable createMoviePanel() {
 
         tableModel = createTableModel();
-        addDataToTable(tableData);
+        addDataToTable(fullTableData);
 
         movieTable = new JTable(tableModel);
 
@@ -51,15 +49,12 @@ public class MovieList implements StateChangeListener {
         movieTable.getColumnModel().getColumn(1).setPreferredWidth(4 * 800 / 10);
         movieTable.getColumnModel().getColumn(2).setPreferredWidth(4 * 800 / 10);
         movieTable.getColumnModel().getColumn(3).setPreferredWidth(2 * 800 / 20);
-        movieTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = movieTable.getSelectedRow();
-                    if (selectedRow != -1) // jest zaznaczony wiersz
-                    {
-                        new ProductWindow(parentFrame, tableData.get(selectedRow));
-                    }
+        movieTable.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = movieTable.getSelectedRow();
+                if (selectedRow != -1) // jest zaznaczony wiersz
+                {
+                    new ProductWindow(parentFrame, displayedTableData.get(selectedRow));
                 }
             }
         });
@@ -75,9 +70,9 @@ public class MovieList implements StateChangeListener {
     }
 
     private void limitTableData() {
-        ArrayList<String[]> newTableData = MovieListUtils.limitTableData(searchParams, tableData);
+        displayedTableData = MovieListUtils.limitTableData(searchParams, fullTableData);
         clearTable();
-        addDataToTable(newTableData);
+        addDataToTable(displayedTableData);
     }
 
     private void addDataToTable(ArrayList<String[]> tableData) {
