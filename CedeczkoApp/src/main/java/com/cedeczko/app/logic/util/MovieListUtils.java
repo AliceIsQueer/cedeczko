@@ -46,6 +46,10 @@ public class MovieListUtils {
 
     public static ArrayList<String> getGenres() {
         ArrayList<String> genres;
+        var genreCache = MovieCache.genres;
+        if (!genreCache.isEmpty()) {
+            return new ArrayList<>(genreCache);
+        }
         try {
             genres = db.getGenres();
             genres.add(0, "");
@@ -53,6 +57,10 @@ public class MovieListUtils {
             System.out.println(e.getMessage());
             genres = new ArrayList<>(List.of(new String[]{"Action", "Horror", "Thriller", "Comedy"}));
         }
+        for(var genre: genres) {
+            MovieCache.addGenre(genre);
+        }
+
         return genres;
     }
     public static String[] getFields() {
