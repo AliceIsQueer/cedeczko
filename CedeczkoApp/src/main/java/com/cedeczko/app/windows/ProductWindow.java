@@ -12,15 +12,16 @@ import java.awt.Dimension;
 public class ProductWindow extends JFrame {
 
     public ProductWindow() {
-        initialize();
+        String[] emptyList = { "", "", "", "" };
+        initialize(emptyList);
     }
 
-    public ProductWindow(JFrame previous_window) {
-        initialize();
+    public ProductWindow(JFrame previous_window, String[] filmInformation) {
+        initialize(filmInformation);
         previous_window.dispose();
     }
 
-    public void initialize() {
+    public void initialize(String[] filmInformation) {
         int wide = 900;
         int high = 800;
         int bottom_high = 50;
@@ -52,7 +53,8 @@ public class ProductWindow extends JFrame {
         left_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
         left_panel.setPreferredSize(new Dimension(wide / 2, high - bottom_high - upper_high));
         // pole tekstowe z informacją o filmie
-        String information_text = "Tytuł: \n Autor: \n Rok wydania: \n Gatunki: \n Opis: \n";
+        String information_text = "Tytuł: " + filmInformation[0] + "\n Autor: " + filmInformation[1]
+                + "\n Rok wydania: " + filmInformation[3] + "\n Gatunki: " + filmInformation[2] + "\n Opis: \n";
         JTextArea film_information = new JTextArea(information_text, 35, 25);
         JScrollPane scroll_text = new JScrollPane(film_information);
         left_panel.add(scroll_text);
