@@ -70,6 +70,10 @@ public class Film {
         return this.poster;
     }
 
+    public String getId() {
+        return getTitle().toLowerCase().replace(" ", "") + "_" + getDirector().toLowerCase().replace(" ", "");
+    }
+
     // jedyne atrybuty, które mogą się zmieniać
     public void setPrice(int new_price) {
         if (new_price <= 0) {
