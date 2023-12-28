@@ -13,15 +13,10 @@ public class MovieCache {
     static public Set<String> genres = new HashSet<>();
 
     public static void addFilm(Film film) {
-        films.put(createFilmId(film), film);
+        films.put(film.getId(), film);
     }
 
     public static void addGenre(String genre) {
         genres.add(genre);
     }
-
-    private static String createFilmId(Film film) {
-        return film.getTitle().toLowerCase().replace(" ", "") + "_" + film.getDirector().toLowerCase().replace(" ", "");
-    }
-
 }
