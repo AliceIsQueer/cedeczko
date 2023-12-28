@@ -6,6 +6,8 @@ import com.cedeczko.app.logic.util.SearchParams;
 import com.cedeczko.app.windows.ProductWindow;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -23,6 +25,7 @@ public class MovieList implements StateChangeListener {
 
     ArrayList<String[]> tableData;
     JFrame parentFrame;
+
     public MovieList(JFrame frame) {
         panel = new JPanel();
 
@@ -32,10 +35,11 @@ public class MovieList implements StateChangeListener {
 
         movieTable = createMoviePanel();
         scrollPane = createScrollPane();
-//        scrollPane.add(movieTable);
+        // scrollPane.add(movieTable);
 
         panel.add(BorderLayout.CENTER, scrollPane);
     }
+
     private JTable createMoviePanel() {
 
         tableModel = createTableModel();
@@ -47,15 +51,26 @@ public class MovieList implements StateChangeListener {
         movieTable.getColumnModel().getColumn(1).setPreferredWidth(4 * 800 / 10);
         movieTable.getColumnModel().getColumn(2).setPreferredWidth(4 * 800 / 10);
         movieTable.getColumnModel().getColumn(3).setPreferredWidth(2 * 800 / 20);
-
-        movieTable.addMouseListener(new MouseAdapter() {
+        movieTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                if (e.getClickCount() == 2)
-                    new ProductWindow(parentFrame);
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = movieTable.getSelectedRow();
+                    if (selectedRow != -1) // jest zaznaczony wiersz
+                    {
+                        new ProductWindow(parentFrame, tableData.get(selectedRow));
+                    }
+                }
             }
         });
-//        movieTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        // movieTable.addMouseListener(new MouseAdapter() {
+        // @Override
+        // public void mousePressed(MouseEvent e) {
+        // if (e.getClickCount() == 2)
+        // new ProductWindow(parentFrame);
+        // }
+        // });
+        // movieTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         return movieTable;
     }
 
@@ -64,14 +79,17 @@ public class MovieList implements StateChangeListener {
         clearTable();
         addDataToTable(newTableData);
     }
+
     private void addDataToTable(ArrayList<String[]> tableData) {
-        for(var row: tableData)
+        for (var row : tableData)
             tableModel.addRow(row);
     }
+
     private void clearTable() {
         while (tableModel.getRowCount() > 0)
             tableModel.removeRow(0);
     }
+
     private DefaultTableModel createTableModel() {
         String[] fields = MovieListUtils.getFields();
         tableModel = new DefaultTableModel() {
@@ -81,16 +99,17 @@ public class MovieList implements StateChangeListener {
             }
         };
 
-
-        for(var field: fields)
+        for (var field : fields)
             tableModel.addColumn(field);
 
         return tableModel;
 
     }
+
     private JScrollPane createScrollPane() {
         return new JScrollPane(movieTable);
     }
+
     public JPanel getPanel() {
         return panel;
     }
