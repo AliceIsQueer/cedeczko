@@ -13,8 +13,8 @@ public class DatabaseConnector implements Database {
     String url;
 
     public DatabaseConnector() {
-        this.url = "jdbc:mysql://127.0.0.1:13306/cedeczko?"
-                 + "user=app&password=password";
+        this.url = "jdbc:mysql://alicja.ampio.com:3306/cedeczko?"
+                 + "user=app&password=cedeczko2425";
     }
 
     public DatabaseConnector(String url) {
