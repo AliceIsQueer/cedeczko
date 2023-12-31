@@ -18,27 +18,30 @@ public class MovieListUtils {
         var data = new ArrayList<String[]>();
         if (!filmCache.isEmpty()) {
             films = new ArrayList<>(filmCache.values());
-        }
-        else {
+        } else {
             try {
                 films = db.getFilms();
-                for(var film: films)
+                for (var film : films)
                     MovieCache.addFilm(film);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
-                String[] genres = new String[]{"Action", "Horror", "Thriller", "Comedy"};
+                String[] genres = new String[] { "Action", "Horror", "Thriller", "Comedy" };
                 for (int i = 0; i < 30; i++) {
-                    data.add(new String[]{"a" + i, "b" + (i % 10), genres[i % 4], "c" + i});
+                    data.add(new String[] { "a" + i, "b" + (i % 10), genres[i % 4], "c" + i });
                 }
             }
         }
-        for(var film: films) {
+        for (var film : films) {
             String title = film.getTitle();
             String director = film.getDirector();
             String genres = film.getGenres().toString();
-            genres = genres.substring(1, genres.length()-1);
+            genres = genres.substring(1, genres.length() - 1);
             String year = Integer.toString(film.getYear());
-            data.add(new String[]{title, director, genres, year});
+            int price_int = film.getPrice();
+            float price_float = price_int / 100;
+            String price = Float.toString(price_float);
+            String description = film.getDescription();
+            data.add(new String[] { title, director, genres, year, price, description });
         }
 
         return data;
@@ -53,21 +56,23 @@ public class MovieListUtils {
         try {
             genres = db.getGenres();
             genres.add(0, "");
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            genres = new ArrayList<>(List.of(new String[]{"Action", "Horror", "Thriller", "Comedy"}));
+            genres = new ArrayList<>(List.of(new String[] { "Action", "Horror", "Thriller", "Comedy" }));
         }
-        for(var genre: genres) {
+        for (var genre : genres) {
             MovieCache.addGenre(genre);
         }
 
         return genres;
     }
+
     public static String[] getFields() {
-        return new String[]{"Tytuł", "Reżyser", "Gatunek", "Rok"};
+        return new String[] { "Tytuł", "Reżyser", "Gatunek", "Rok" };
     }
+
     public static ArrayList<String[]> limitTableData(SearchParams searchParams, ArrayList<String[]> data) {
-        return (ArrayList<String[]>)data.stream()
+        return (ArrayList<String[]>) data.stream()
                 .filter(searchParams::listIncludesParams)
                 .collect(Collectors.toList());
     }
