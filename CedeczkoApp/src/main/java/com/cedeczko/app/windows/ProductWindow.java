@@ -74,7 +74,6 @@ public class ProductWindow extends JFrame {
         // Image image = ImageIO.read(bis);
         // new ImageIcon(image)
         JLabel picture = new JLabel();
-        picture.setForeground(Color.RED);
         right_panel.add(picture);
         add(right_panel, BorderLayout.EAST);
 
