@@ -12,7 +12,7 @@ import java.awt.Dimension;
 public class ProductWindow extends JFrame {
 
     public ProductWindow() {
-        String[] emptyList = { "", "", "", "" };
+        String[] emptyList = { "", "", "", "", "", "" };
         initialize(emptyList);
     }
 
@@ -54,9 +54,12 @@ public class ProductWindow extends JFrame {
         left_panel.setPreferredSize(new Dimension(wide / 2, high - bottom_high - upper_high));
         // pole tekstowe z informacją o filmie
         String information_text = "Tytuł: " + filmInformation[0] + "\n Autor: " + filmInformation[1]
-                + "\n Rok wydania: " + filmInformation[3] + "\n Gatunki: " + filmInformation[2] + "\n Opis: \n";
-        JTextArea film_information = new JTextArea(information_text, 35, 25);
-        JScrollPane scroll_text = new JScrollPane(film_information);
+                + "\n Rok wydania: " + filmInformation[3] + "\n Gatunki: " + filmInformation[2] + "\n Opis: "
+                + filmInformation[5] + "\n";
+        JTextArea filmInformationField = new JTextArea(information_text, 35, 25);
+        filmInformationField.setLineWrap(true);
+        filmInformationField.setWrapStyleWord(true);
+        JScrollPane scroll_text = new JScrollPane(filmInformationField);
         left_panel.add(scroll_text);
 
         add(left_panel, BorderLayout.WEST);
@@ -80,7 +83,7 @@ public class ProductWindow extends JFrame {
         down_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         down_panel.setPreferredSize(new Dimension(wide, bottom_high));
         // Cena
-        JTextField price_field = new JTextField("Cena: ", 10);
+        JTextField price_field = new JTextField("Cena: " + filmInformation[4] + " zł", 10);
         down_panel.add(price_field);
         // przycisk dodaj do koszyka
         JButton add_basket_button = new JButton("Dodaj do koszyka");
