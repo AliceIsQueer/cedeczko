@@ -84,8 +84,6 @@ public class ProductWindow extends JFrame {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } {
-            System.out.println("Could not load poster");
         }
         JLabel poster = new JLabel(new ImageIcon(picture.getScaledInstance(wide/2, high - bottom_high - upper_high, 1)));
         right_panel.add(poster);
