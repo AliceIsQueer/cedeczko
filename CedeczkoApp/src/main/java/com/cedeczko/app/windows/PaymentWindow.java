@@ -109,7 +109,7 @@ public class PaymentWindow extends JFrame {
         right_panel.setPreferredSize(new Dimension(3 * wide / 10, (high - 2 * upper_high) / 2));
         JLabel r1label = new JLabel("PODSUMOWANIE");
         JLabel r2label = new JLabel("Liczba produktów: " + basket.getProductsNumber());
-        JLabel r3label = new JLabel("Łączna kwota do zapłaty: " + basket.getValue());
+        JLabel r3label = new JLabel("Łączna kwota do zapłaty: " + basket.getValue() + "zł");
         JLabel warning = new JLabel("");
         JButton pay_button = new JButton("Zapłać");
 

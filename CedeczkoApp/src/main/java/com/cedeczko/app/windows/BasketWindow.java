@@ -58,13 +58,21 @@ public class BasketWindow extends JFrame {
         right_panel.setPreferredSize(new Dimension(3 * wide / 10, (high - upper_high) / 2));
         JLabel r1label = new JLabel("PODSUMOWANIE");
         JLabel r2label = new JLabel("Liczba produktów: " + basket.getProductsNumber());
-        JLabel r3label = new JLabel("Łączna kwota do zapłaty: " + basket.getValue());
+        JLabel r3label = new JLabel("Łączna kwota do zapłaty: " + basket.getValue() + "zł");
         JButton pay_button = new JButton("Przejdź do kasy");
-        pay_button.addActionListener(e -> new PaymentWindow(this));
+        JLabel warning = new JLabel("");
+        pay_button.addActionListener(e -> {
+          if (basket.getValue() != 0) {
+            new PaymentWindow(this);
+          } else {
+            warning.setText("Twój koszyk jest pusty!");
+          }
+        });
         right_panel.add(r1label);
         right_panel.add(r2label);
         right_panel.add(r3label);
         right_panel.add(pay_button);
+        right_panel.add(warning);
         
         add(right_panel, BorderLayout.EAST);
 
