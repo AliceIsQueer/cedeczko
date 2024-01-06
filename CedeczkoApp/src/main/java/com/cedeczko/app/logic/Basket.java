@@ -5,12 +5,12 @@ import java.util.*;
 public class Basket {
     private static Basket instance;
     private List<String[]> products;
-    int products_number;
+    int productsNumber;
     float value;
 
     private Basket() {
       this.products = new ArrayList<String[]>();
-      this.products_number = 0;
+      this.productsNumber = 0;
       this.value = 0;
     }
 
@@ -24,19 +24,11 @@ public class Basket {
     public void setProducts(List<String[]> newProducts) {
         products.clear();
         products.addAll(newProducts);
-        products_number = newProducts.size();
+        productsNumber = newProducts.size();
         value = 0;
         for (String[] product : products) {
           value += Float.parseFloat(product[4]);
         }
-    }
-
-    public void setProductsNumber(int number){
-        products_number = number;
-    }
-
-    public void setValue(int given_value){
-        value = given_value;
     }
 
     public List<String[]> getProducts(){
@@ -44,7 +36,7 @@ public class Basket {
     }
 
     public int getProductsNumber(){
-        return this.products_number;
+        return this.productsNumber;
     }
 
     public float getValue(){
@@ -53,30 +45,29 @@ public class Basket {
 
     public void addProduct(String[] product) {
         products.add(product);
-        products_number += 1;
+        productsNumber += 1;
         value += Float.parseFloat(product[4]);
     }
 
     public void removeProduct(String title, String date, float price) {
-        String[] product_to_remove = null;
+        String[] productToRemove = null;
         for (String[] product : products) {
           if (product[0].equals(title) && product[3].equals(date) && Float.parseFloat(product[4]) == price) {
-            product_to_remove = product;
+            productToRemove = product;
             break;
           }
         }
 
-        if (product_to_remove != null) {
-          products.remove(product_to_remove);
-          products_number -= 1;
-          value -= Float.parseFloat(product_to_remove[4]);
+        if (productToRemove != null) {
+          products.remove(productToRemove);
+          productsNumber -= 1;
+          value -= Float.parseFloat(productToRemove[4]);
         }
-        
     }
 
     public void removeAllProducts() {
         products.clear();
-        products_number = 0;
+        productsNumber = 0;
         value = 0;
     }
 }
