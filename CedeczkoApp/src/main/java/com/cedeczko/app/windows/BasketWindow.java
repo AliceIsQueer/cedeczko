@@ -1,20 +1,21 @@
 package com.cedeczko.app.windows;
 
+import com.cedeczko.app.logic.Basket;
 import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.awt.Dimension;
 
-public class BasketWindow extends JFrame {
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.*;
 
+public class BasketWindow extends JFrame {
+    private Basket basket = Basket.getInstance();
 
     private DefaultTableModel model;
     private JTable products_table;
@@ -50,6 +51,23 @@ public class BasketWindow extends JFrame {
 
         add(up_panel, BorderLayout.NORTH);
 
+        // prawa część ekranu
+        JPanel right_panel = new JPanel();
+        right_panel.add(Box.createRigidArea(new Dimension(0, (high - upper_high) / 3)));
+        right_panel.setLayout(new BoxLayout(right_panel, BoxLayout.PAGE_AXIS));
+        right_panel.setPreferredSize(new Dimension(3 * wide / 10, (high - upper_high) / 2));
+        JLabel r1label = new JLabel("PODSUMOWANIE");
+        JLabel r2label = new JLabel("Liczba produktów: " + basket.getProductsNumber());
+        JLabel r3label = new JLabel("Łączna kwota do zapłaty: " + basket.getValue());
+        JButton pay_button = new JButton("Przejdź do kasy");
+        pay_button.addActionListener(e -> new PaymentWindow(this));
+        right_panel.add(r1label);
+        right_panel.add(r2label);
+        right_panel.add(r3label);
+        right_panel.add(pay_button);
+        
+        add(right_panel, BorderLayout.EAST);
+
         // lewa część ekranu
         JPanel left_panel = new JPanel(new GridBagLayout());
         left_panel.setPreferredSize(new Dimension((6 * wide / 10), high - upper_high));
@@ -68,11 +86,12 @@ public class BasketWindow extends JFrame {
         model.addColumn("");
 
         products_table = new JTable(model);
-        products_table.getColumnModel().getColumn(0).setPreferredWidth(4 * wide / 10);
-        products_table.getColumnModel().getColumn(1).setPreferredWidth(2 * wide / 20);
-        products_table.getColumnModel().getColumn(2).setPreferredWidth(2 * wide / 20);
-        Object[] przykladowyProdukt1 = {"Piła X", 20.0, "Usuń produkt"}; //przykład, żeby sprawdzić, czy działa usuwanie
-        model.addRow(przykladowyProdukt1);
+        List<String[]> products = basket.getProducts();
+        for (String[] film : products) {
+          products_table.getColumnModel().getColumn(0).setPreferredWidth(4 * wide / 10);
+          Object[] product = {film[0] + " (" + film[3] + ")", film[4], "Usuń produkt"};
+          model.addRow(product);
+        }
 
         products_table.addMouseListener(new MouseAdapter() {
           @Override
@@ -81,7 +100,13 @@ public class BasketWindow extends JFrame {
               int row = products_table.rowAtPoint(e.getPoint());
 
               if (column == model.findColumn("") && row != -1) {
+                  String title_date = model.getValueAt(row, 0).toString().replaceAll("[()]", " ");
+                  String[] title_and_date = title_date.split("  ");
+                  float price = Float.parseFloat(model.getValueAt(row, 1).toString());
+                  basket.removeProduct(title_and_date[0], title_and_date[1].replaceAll("[ ]", ""), price);
                   model.removeRow(row);
+                  r2label.setText("Liczba produktów: " + basket.getProductsNumber());
+                  r3label.setText("Łączna kwota do zapłaty: " + basket.getValue());
               }
           }
         });
@@ -95,23 +120,6 @@ public class BasketWindow extends JFrame {
         left_panel.add(scrollPane);
 
         add(left_panel, BorderLayout.WEST);
-        
-        // prawa część ekranu
-        JPanel right_panel = new JPanel();
-        right_panel.add(Box.createRigidArea(new Dimension(0, (high - upper_high) / 3)));
-        right_panel.setLayout(new BoxLayout(right_panel, BoxLayout.PAGE_AXIS));
-        right_panel.setPreferredSize(new Dimension(3 * wide / 10, (high - upper_high) / 2));
-        JLabel r1label = new JLabel("PODSUMOWANIE");
-        JLabel r2label = new JLabel("Liczba produktów:");
-        JLabel r3label = new JLabel("Łączna kwota do zapłaty:");
-        JButton pay_button = new JButton("Przejdź do kasy");
-        pay_button.addActionListener(e -> new PaymentWindow(this));
-        right_panel.add(r1label);
-        right_panel.add(r2label);
-        right_panel.add(r3label);
-        right_panel.add(pay_button);
-        
-        add(right_panel, BorderLayout.EAST);
         
         setVisible(true);
     }

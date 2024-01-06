@@ -1,14 +1,17 @@
 package com.cedeczko.app.windows;
+import com.cedeczko.app.logic.Basket;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 
 public class PaymentWindow extends JFrame {
+    private Basket basket = Basket.getInstance();
 
     public PaymentWindow() {
         initialize();
@@ -105,8 +108,8 @@ public class PaymentWindow extends JFrame {
         right_panel.setLayout(new BoxLayout(right_panel, BoxLayout.PAGE_AXIS));
         right_panel.setPreferredSize(new Dimension(3 * wide / 10, (high - 2 * upper_high) / 2));
         JLabel r1label = new JLabel("PODSUMOWANIE");
-        JLabel r2label = new JLabel("Liczba produktów:");
-        JLabel r3label = new JLabel("Łączna kwota do zapłaty:");
+        JLabel r2label = new JLabel("Liczba produktów: " + basket.getProductsNumber());
+        JLabel r3label = new JLabel("Łączna kwota do zapłaty: " + basket.getValue());
         JLabel warning = new JLabel("");
         JButton pay_button = new JButton("Zapłać");
 

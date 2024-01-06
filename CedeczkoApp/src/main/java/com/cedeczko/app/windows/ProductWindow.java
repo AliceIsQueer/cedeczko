@@ -1,6 +1,6 @@
 package com.cedeczko.app.windows;
-
 import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
+import com.cedeczko.app.logic.Basket;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 
 public class ProductWindow extends JFrame {
+    private Basket basket = Basket.getInstance();
 
     public ProductWindow() {
         String[] emptyList = { "", "", "", "", "", "" };
@@ -86,6 +87,7 @@ public class ProductWindow extends JFrame {
         down_panel.add(price_field);
         // przycisk dodaj do koszyka
         JButton add_basket_button = new JButton("Dodaj do koszyka");
+        add_basket_button.addActionListener(e -> basket.addProduct(filmInformation));
         down_panel.add(add_basket_button);
 
         add(down_panel, BorderLayout.SOUTH);

@@ -1,5 +1,6 @@
 package com.cedeczko.app.windows;
 
+import com.cedeczko.app.logic.Basket;
 import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
 
 import java.awt.BorderLayout;
@@ -9,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Component;
 
 public class SuccessfulWindow extends JFrame {
+    private Basket basket = Basket.getInstance();
 
     public SuccessfulWindow() {
         initialize();
@@ -17,6 +19,7 @@ public class SuccessfulWindow extends JFrame {
     public SuccessfulWindow(JFrame previous_window) {
         initialize();
         previous_window.dispose();
+        basket.removeAllProducts();
     }
 
     public void initialize() {
