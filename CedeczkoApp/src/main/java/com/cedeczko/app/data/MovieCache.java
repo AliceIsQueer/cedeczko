@@ -19,4 +19,13 @@ public class MovieCache {
     public static void addGenre(String genre) {
         genres.add(genre);
     }
+
+    public static Film getFilm(String filmId) {
+        return films.get(filmId);
+    }
+
+    public static Film getFilm(String title, String director) {
+        String id = title.toLowerCase().replace(" ", "") + "_" + director.toLowerCase().replace(" ", "");
+        return getFilm(id);
+    }
 }
