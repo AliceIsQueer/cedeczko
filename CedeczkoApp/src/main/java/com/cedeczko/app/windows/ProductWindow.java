@@ -1,13 +1,16 @@
 package com.cedeczko.app.windows;
+import com.cedeczko.app.data.MovieCache;
+import com.cedeczko.app.logic.Film;
 import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
 import com.cedeczko.app.logic.Basket;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.Color;
+import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class ProductWindow extends JFrame {
     private Basket basket = Basket.getInstance();
@@ -70,12 +73,22 @@ public class ProductWindow extends JFrame {
         right_panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 5));
         right_panel.setPreferredSize(new Dimension(wide / 2, high - bottom_high - upper_high));
         // plakat filmu
-        // byte[] imageBytes = poster.getBytes(1, (int) poster.length());
-        // ByteArrayInputStream bis = nwe ByteArrayInputStream(imageBytes);
-        // Image image = ImageIO.read(bis);
-        // new ImageIcon(image)
-        JLabel picture = new JLabel();
-        right_panel.add(picture);
+
+        Film film = MovieCache.getFilm(filmInformation[0], filmInformation[1]);
+        BufferedImage picture = null;
+        try {
+            byte[] imageBytes = film.getPoster().getBytes(1L, (int) film.getPoster().length());
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+            picture = ImageIO.read(bis);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } {
+            System.out.println("Could not load poster");
+        }
+        JLabel poster = new JLabel(new ImageIcon(picture.getScaledInstance(wide/2, high - bottom_high - upper_high, 1)));
+        right_panel.add(poster);
         add(right_panel, BorderLayout.EAST);
 
         // dół ekranu
