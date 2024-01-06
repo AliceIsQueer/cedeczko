@@ -5,6 +5,7 @@ import com.cedeczko.app.errors.NoGenresError;
 import com.cedeczko.app.errors.WrongPriceError;
 import com.cedeczko.app.errors.WrongReleaseYearError;
 
+import java.sql.Blob;
 import java.util.*;
 import javax.sql.rowset.serial.SerialBlob;
 import java.time.LocalDate;
@@ -16,10 +17,10 @@ public class Film {
     private int price; // w groszach
     final private List<String> genres;
     private String description;
-    private SerialBlob poster;
+    private Blob poster;
 
     public Film(String g_title, String g_director, int g_year, int g_price, List<String> g_genres, String g_description,
-            SerialBlob g_poster) {
+            Blob g_poster) {
         if (g_title.isEmpty()) {
             throw new EmptyStringError("The title canot be empty.");
         }
@@ -66,7 +67,7 @@ public class Film {
         return this.description;
     }
 
-    public SerialBlob getPoster() {
+    public Blob getPoster() {
         return this.poster;
     }
 
@@ -86,7 +87,7 @@ public class Film {
         this.description = new_description;
     }
 
-    public void setPoster(SerialBlob new_poster) {
+    public void setPoster(Blob new_poster) {
         this.poster = new_poster;
     }
 }

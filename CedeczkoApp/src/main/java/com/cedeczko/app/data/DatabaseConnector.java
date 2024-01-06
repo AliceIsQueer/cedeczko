@@ -2,6 +2,7 @@ package com.cedeczko.app.data;
 
 import com.cedeczko.app.logic.Film;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -58,8 +59,9 @@ public class DatabaseConnector implements Database {
                 String description = resultSet.getString("description");
                 ArrayList<String> genres = getFilmGenres(movie_id);
                 String director_name = getDirectorName(director_id);
+                Blob poster = resultSet.getBlob("poster");
 
-                Film film = new Film(title, director_name, year, price, genres, description, null);
+                Film film = new Film(title, director_name, year, price, genres, description, poster);
 
                 films.add(film);
             }
