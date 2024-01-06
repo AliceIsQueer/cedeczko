@@ -21,10 +21,7 @@ public class SearchParams {
     }
 
     public boolean listIncludesParams(String[] list) {
-        if (list.length != searchParams.length)
-            throw new IllegalArgumentException("Searched list must have the same number of elements as the number of parameters.");
-
-        return IntStream.range(0, list.length).allMatch(i -> list[i].contains(searchParams[i]));
+        return IntStream.range(0, list.length - 2).allMatch(i -> list[i].contains(searchParams[i]));
     }
 
     public String[] getSearchParams() {
