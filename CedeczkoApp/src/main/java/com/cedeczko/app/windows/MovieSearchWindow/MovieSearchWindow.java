@@ -38,7 +38,7 @@ public class MovieSearchWindow {
 
         ImageIcon icon = new ImageIcon("src/main/resources/loader.gif");
         loader = new JLabel(icon);
-        loader.setPreferredSize(new Dimension(WindowConstants.width, 200));
+        loader.setPreferredSize(new Dimension(WindowConstants.width, 600));
 
         movieList = new MovieList(frame, loader);
         movieSearchBars = new MovieSearchBars(movieList);
