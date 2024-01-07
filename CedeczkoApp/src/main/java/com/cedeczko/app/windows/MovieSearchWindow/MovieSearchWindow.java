@@ -42,7 +42,6 @@ public class MovieSearchWindow {
 
         movieList = new MovieList(frame, loader);
         movieSearchBars = new MovieSearchBars(movieList);
-        movieList.getPanel().setVisible(false);
 
         centerPanel.add(movieSearchBars.getPanel());
         centerPanel.add(loader);

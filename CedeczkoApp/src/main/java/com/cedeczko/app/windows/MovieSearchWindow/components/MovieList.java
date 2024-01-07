@@ -28,6 +28,7 @@ public class MovieList implements StateChangeListener {
         panel = new JPanel();
         this.loader = loader;
         Thread.startVirtualThread(() -> {
+            getPanel().setVisible(false);
             fullTableData = MovieListUtils.getData();
             displayedTableData = fullTableData;
             addDataToTable(displayedTableData);
