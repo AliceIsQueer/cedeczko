@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class ProductWindow extends JFrame {
     private Basket basket = Basket.getInstance();
@@ -28,7 +29,7 @@ public class ProductWindow extends JFrame {
     public void initialize(String[] filmInformation) {
         int wide = 900;
         int high = 800;
-        int bottom_high = 50;
+        int bottom_high = 75;
         int upper_high = 50;
         setTitle("Informacje o produkcie");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -91,16 +92,38 @@ public class ProductWindow extends JFrame {
 
         // dół ekranu
         JPanel down_panel = new JPanel();
-        down_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        down_panel.setLayout(new BorderLayout());
         down_panel.setPreferredSize(new Dimension(wide, bottom_high));
+        JPanel upperdown_panel = new JPanel();
+        upperdown_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        upperdown_panel.setPreferredSize(new Dimension(wide, bottom_high/2));
+        JPanel bottomdown_panel = new JPanel();
+        bottomdown_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        bottomdown_panel.setPreferredSize(new Dimension(wide, bottom_high/2));
         // Cena
         JTextField price_field = new JTextField("Cena: " + filmInformation[4] + " zł", 10);
-        down_panel.add(price_field);
+        upperdown_panel.add(price_field);
         // przycisk dodaj do koszyka
         JButton add_basket_button = new JButton("Dodaj do koszyka");
-        add_basket_button.addActionListener(e -> basket.addProduct(filmInformation));
-        down_panel.add(add_basket_button);
-
+        JLabel warning = new JLabel("");
+        add_basket_button.addActionListener(e -> {
+          boolean available = true;
+          for (String[] product : basket.getProducts()) {
+              if (Arrays.equals(product, filmInformation)) {
+                  available = false;
+                  break;
+              }
+          }
+          if (available) {
+            basket.addProduct(filmInformation);
+          } else {
+            warning.setText("Ten produkt znajduje się już w Twoim koszyku!");
+          }
+        });
+        upperdown_panel.add(add_basket_button);
+        bottomdown_panel.add(warning);
+        down_panel.add(upperdown_panel, BorderLayout.NORTH);
+        down_panel.add(bottomdown_panel, BorderLayout.SOUTH);
         add(down_panel, BorderLayout.SOUTH);
         setVisible(true);
     }

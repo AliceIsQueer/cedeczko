@@ -1,5 +1,7 @@
 package com.cedeczko.app.windows;
 
+import com.cedeczko.app.data.Database;
+import com.cedeczko.app.data.DatabaseConnector;
 import com.cedeczko.app.logic.Basket;
 import com.cedeczko.app.windows.MovieSearchWindow.MovieSearchWindow;
 
@@ -11,6 +13,7 @@ import java.awt.Component;
 
 public class SuccessfulWindow extends JFrame {
     private Basket basket = Basket.getInstance();
+    static Database db = new DatabaseConnector();
 
     public SuccessfulWindow() {
         initialize();
@@ -19,6 +22,9 @@ public class SuccessfulWindow extends JFrame {
     public SuccessfulWindow(JFrame previous_window) {
         initialize();
         previous_window.dispose();
+        for (String[] product : basket.getProducts()) {
+            db.deleteFilm(product);
+        }
         basket.removeAllProducts();
     }
 

@@ -15,6 +15,10 @@ public class MovieCache {
     public static void addFilm(Film film) {
         films.put(film.getId(), film);
     }
+    
+    public static void removeFilm(String filmId) {
+      films.remove(filmId);
+    }
 
     public static void addGenre(String genre) {
         genres.add(genre);

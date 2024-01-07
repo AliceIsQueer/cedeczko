@@ -138,4 +138,39 @@ public class DatabaseConnector implements Database {
 
         return genres;
     }
+
+    public void deleteFilm(String[] filmInformation) {
+        try {
+            connect = DriverManager
+                            .getConnection(url);
+            PreparedStatement preparedStatement1 = connect.prepareStatement("select * from cedeczko.movies where description = ?;");
+            preparedStatement1.setString(1, filmInformation[5]);
+            resultSet = preparedStatement1.executeQuery();
+            int id = -1;
+            String title = null;
+            String director = null;
+            if (resultSet.next()) {
+              id = resultSet.getInt("movie_id");
+              title = resultSet.getString("title");
+              int director_id = resultSet.getInt("director_id");
+              director = getDirectorName(director_id);
+              System.out.println(id);
+            }
+
+            PreparedStatement preparedStatement2 = connect.prepareStatement("delete from cedeczko.movies where movie_id = ?;");
+            preparedStatement2.setInt(1, id);
+            preparedStatement2.executeUpdate();
+
+            PreparedStatement preparedStatement3 = connect.prepareStatement("delete from cedeczko.movies_genres where movie_id = ?;");
+            preparedStatement3.setInt(1, id);
+            preparedStatement3.executeUpdate();
+
+            String filmId = title.toLowerCase().replace(" ", "") + "_" + director.toLowerCase().replace(" ", "");
+            MovieCache.removeFilm(filmId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close();
+        }
+    }
 }
