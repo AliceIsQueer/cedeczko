@@ -157,13 +157,13 @@ public class DatabaseConnector implements Database {
               System.out.println(id);
             }
 
-            PreparedStatement preparedStatement2 = connect.prepareStatement("delete from cedeczko.movies where movie_id = ?;");
+            /*PreparedStatement preparedStatement2 = connect.prepareStatement("delete from cedeczko.movies where movie_id = ?;");
             preparedStatement2.setInt(1, id);
             preparedStatement2.executeUpdate();
 
             PreparedStatement preparedStatement3 = connect.prepareStatement("delete from cedeczko.movies_genres where movie_id = ?;");
             preparedStatement3.setInt(1, id);
-            preparedStatement3.executeUpdate();
+            preparedStatement3.executeUpdate();*/
 
             String filmId = title.toLowerCase().replace(" ", "") + "_" + director.toLowerCase().replace(" ", "");
             MovieCache.removeFilm(filmId);
