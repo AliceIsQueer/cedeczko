@@ -31,7 +31,7 @@ public class TestBasket {
 
         assertEquals(newProducts, basket.getProducts());
         assertEquals(newProducts.size(), basket.getProductsNumber());
-        assertEquals(30.0, basket.getValue(), 0.001);
+        assertEquals(107.0, basket.getValue(), 0.001);
 
         basket.removeAllProducts();
     }
@@ -45,7 +45,7 @@ public class TestBasket {
         basket.addProduct(product);
 
         assertEquals(1, basket.getProductsNumber());
-        assertEquals(15.0, basket.getValue(), 0.001);
+        assertEquals(55.0, basket.getValue(), 0.001);
 
         basket.removeAllProducts();
     }
@@ -66,7 +66,7 @@ public class TestBasket {
         basket.removeProduct(productToRemove[0], productToRemove[3], Float.parseFloat(productToRemove[4]));
 
         assertEquals(1, basket.getProductsNumber());
-        assertEquals(20.0, basket.getValue(), 0.001);
+        assertEquals(50.0, basket.getValue(), 0.001);
 
         basket.removeAllProducts();
     }

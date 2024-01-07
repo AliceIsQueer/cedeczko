@@ -64,6 +64,7 @@ public class ProductWindow extends JFrame {
         JTextArea filmInformationField = new JTextArea(information_text, 35, 25);
         filmInformationField.setLineWrap(true);
         filmInformationField.setWrapStyleWord(true);
+        filmInformationField.setEditable(false);
         JScrollPane scroll_text = new JScrollPane(filmInformationField);
         left_panel.add(scroll_text);
 
@@ -102,6 +103,7 @@ public class ProductWindow extends JFrame {
         bottomdown_panel.setPreferredSize(new Dimension(wide, bottom_high/2));
         // Cena
         JTextField price_field = new JTextField("Cena: " + filmInformation[4] + " zł", 10);
+        price_field.setEditable(false);
         upperdown_panel.add(price_field);
         // przycisk dodaj do koszyka
         JButton add_basket_button = new JButton("Dodaj do koszyka");

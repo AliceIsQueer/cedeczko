@@ -154,7 +154,6 @@ public class DatabaseConnector implements Database {
               title = resultSet.getString("title");
               int director_id = resultSet.getInt("director_id");
               director = getDirectorName(director_id);
-              System.out.println(id);
             }
 
             /*PreparedStatement preparedStatement2 = connect.prepareStatement("delete from cedeczko.movies where movie_id = ?;");
