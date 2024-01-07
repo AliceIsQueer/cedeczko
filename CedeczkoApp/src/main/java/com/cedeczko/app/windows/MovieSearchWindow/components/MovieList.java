@@ -19,15 +19,17 @@ public class MovieList implements StateChangeListener {
 
     SearchParams searchParams;
 
-    ArrayList<String[]> fullTableData;
-    ArrayList<String[]> displayedTableData;
+    ArrayList<String[]> fullTableData = new ArrayList<>();
+    ArrayList<String[]> displayedTableData = new ArrayList<>();
     JFrame parentFrame;
 
     public MovieList(JFrame frame) {
         panel = new JPanel();
-
-        fullTableData = MovieListUtils.getData();
-        displayedTableData = fullTableData;
+        Thread.startVirtualThread(() -> {
+            fullTableData = MovieListUtils.getData();
+            displayedTableData = fullTableData;
+            addDataToTable(displayedTableData);
+        });
         this.searchParams = new SearchParams(4);
         parentFrame = frame;
 
@@ -58,14 +60,6 @@ public class MovieList implements StateChangeListener {
                 }
             }
         });
-        // movieTable.addMouseListener(new MouseAdapter() {
-        // @Override
-        // public void mousePressed(MouseEvent e) {
-        // if (e.getClickCount() == 2)
-        // new ProductWindow(parentFrame);
-        // }
-        // });
-        // movieTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         return movieTable;
     }
 

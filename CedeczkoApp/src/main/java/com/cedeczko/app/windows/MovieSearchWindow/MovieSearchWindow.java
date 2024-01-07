@@ -30,7 +30,6 @@ public class MovieSearchWindow {
         frame.setSize(WindowConstants.width, WindowConstants.height);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setVisible(true);
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
@@ -43,6 +42,7 @@ public class MovieSearchWindow {
         centerPanel.add(movieList.getPanel());
 
         frame.add(BorderLayout.CENTER, centerPanel);
+        frame.setVisible(true);
     }
 
 
