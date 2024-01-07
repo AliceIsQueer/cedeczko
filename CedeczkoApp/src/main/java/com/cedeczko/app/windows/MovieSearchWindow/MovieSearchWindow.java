@@ -13,6 +13,8 @@ public class MovieSearchWindow {
     private MovieSearchBars movieSearchBars;
     private MovieList movieList;
 
+    private JLabel loader;
+
     public MovieSearchWindow() {
         initialize();
     }
@@ -34,11 +36,16 @@ public class MovieSearchWindow {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        movieList = new MovieList(frame);
-        movieSearchBars = new MovieSearchBars(movieList);
+        ImageIcon icon = new ImageIcon("src/main/resources/loader.gif");
+        loader = new JLabel(icon);
+        loader.setPreferredSize(new Dimension(WindowConstants.width, 200));
 
+        movieList = new MovieList(frame, loader);
+        movieSearchBars = new MovieSearchBars(movieList);
+        movieList.getPanel().setVisible(false);
 
         centerPanel.add(movieSearchBars.getPanel());
+        centerPanel.add(loader);
         centerPanel.add(movieList.getPanel());
 
         frame.add(BorderLayout.CENTER, centerPanel);

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class MovieList implements StateChangeListener {
 
+    JLabel loader;
     JPanel panel;
     DefaultTableModel tableModel;
     JTable movieTable;
@@ -23,12 +24,15 @@ public class MovieList implements StateChangeListener {
     ArrayList<String[]> displayedTableData = new ArrayList<>();
     JFrame parentFrame;
 
-    public MovieList(JFrame frame) {
+    public MovieList(JFrame frame, JLabel loader) {
         panel = new JPanel();
+        this.loader = loader;
         Thread.startVirtualThread(() -> {
             fullTableData = MovieListUtils.getData();
             displayedTableData = fullTableData;
             addDataToTable(displayedTableData);
+            getPanel().setVisible(true);
+            loader.setVisible(false);
         });
         this.searchParams = new SearchParams(4);
         parentFrame = frame;
