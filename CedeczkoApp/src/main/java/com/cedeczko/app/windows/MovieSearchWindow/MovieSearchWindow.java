@@ -1,11 +1,14 @@
 package com.cedeczko.app.windows.MovieSearchWindow;
 
 import com.cedeczko.app.logic.constants.WindowConstants;
+import com.cedeczko.app.windows.BasketWindow;
 import com.cedeczko.app.windows.MovieSearchWindow.components.MovieList;
 import com.cedeczko.app.windows.MovieSearchWindow.components.MovieSearchBars;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MovieSearchWindow {
     private JFrame frame;
@@ -14,6 +17,8 @@ public class MovieSearchWindow {
     private MovieList movieList;
 
     private JLabel loader;
+
+    private JButton basketButton;
 
     public MovieSearchWindow() {
         initialize();
@@ -40,10 +45,20 @@ public class MovieSearchWindow {
         loader = new JLabel(icon);
         loader.setPreferredSize(new Dimension(WindowConstants.width, 600));
 
-        movieList = new MovieList(frame, loader);
-        movieSearchBars = new MovieSearchBars(movieList);
+        basketButton = new JButton("Koszyk");
+        basketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new BasketWindow(getFrame());
+            }
+        });
+
+        movieSearchBars = new MovieSearchBars();
+        movieList = new MovieList(frame, loader, basketButton, movieSearchBars);
+        movieSearchBars.addStateChangeListener(movieList);
 
         centerPanel.add(movieSearchBars.getPanel());
+        centerPanel.add(basketButton);
         centerPanel.add(loader);
         centerPanel.add(movieList.getPanel());
 

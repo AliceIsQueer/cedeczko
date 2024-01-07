@@ -21,6 +21,13 @@ public class OptionPicker extends JComboBox<String> {
             listener.onStateChange(new Pair< Integer, String >(fieldNo, (String)getSelectedItem()));
         });
     }
+    public void updateStateChangeListener(StateChangeListener listener) {
+        this.listener = listener;
+        addActionListener(e -> {
+            listener.onStateChange(new Pair< Integer, String >(fieldNo, (String)getSelectedItem()));
+        });
+    }
+
 
     void addOptions(ArrayList<String> options) {
         for (var option : options)
