@@ -93,7 +93,7 @@ public class PaymentWindow extends JFrame {
         left_panel.add(new JLabel("Numer karty:"));
         JTextField card_no_field = new JTextField();
         left_panel.add(card_no_field);
-        left_panel.add(new JLabel("Data ważności (RR/MM):"));
+        left_panel.add(new JLabel("Data ważności (MM/RR):"));
         JTextField expiration_date_field = new JTextField();
         left_panel.add(expiration_date_field);
         left_panel.add(new JLabel("Kod bezpieczeństwa (CVV/CVC):"));
