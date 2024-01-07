@@ -24,16 +24,22 @@ public class MovieList implements StateChangeListener {
     ArrayList<String[]> displayedTableData = new ArrayList<>();
     JFrame parentFrame;
 
-    public MovieList(JFrame frame, JLabel loader) {
+    public MovieList(JFrame frame, JLabel loader, JButton button, MovieSearchBars bars) {
         panel = new JPanel();
         this.loader = loader;
         Thread.startVirtualThread(() -> {
             getPanel().setVisible(false);
+            button.setVisible(false);
+            bars.getPanel().setVisible(false);
+
             fullTableData = MovieListUtils.getData();
             displayedTableData = fullTableData;
             addDataToTable(displayedTableData);
+
             getPanel().setVisible(true);
             loader.setVisible(false);
+            button.setVisible(true);
+            bars.getPanel().setVisible(true);
         });
         this.searchParams = new SearchParams(4);
         parentFrame = frame;

@@ -41,4 +41,12 @@ public class SearchBox extends JTextField {
             }
         });
     }
+
+    public void updateStateChangeListener(StateChangeListener listener) {
+        this.listener = listener;
+        addActionListener(e -> {
+            searchBoxValue = getText();
+            listener.onStateChange(new Pair<Integer, String>(fieldNo, searchBoxValue));
+        });
+    }
 }

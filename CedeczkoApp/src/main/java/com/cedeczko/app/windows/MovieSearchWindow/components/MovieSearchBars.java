@@ -9,14 +9,13 @@ import com.cedeczko.app.logic.util.Pair;
 
 public class MovieSearchBars {
     private JPanel panel;
-    private JTextField movieNameTextField;
-    private JTextField movieAuthorTextField;
-    private JComboBox<String> movieGenrePicker;
-    private JTextField movieYearTextField;
-    private StateChangeListener listener;
+    private SearchBox movieNameTextField;
+    private SearchBox movieAuthorTextField;
+    private OptionPicker movieGenrePicker;
+    private SearchBox movieYearTextField;
+    private StateChangeListener listener = new StateChangeListener() {@Override public void onStateChange(Pair<Integer, String> newState) {}};
 
-    public MovieSearchBars(StateChangeListener listener) {
-        this.listener = listener;
+    public MovieSearchBars() {
         panel = new JPanel();
 
         movieNameTextField = createNameTextField();
@@ -30,19 +29,28 @@ public class MovieSearchBars {
         panel.add(BorderLayout.NORTH, movieYearTextField);
     }
 
-    private JTextField createNameTextField() {
+    public void addStateChangeListener(StateChangeListener listener) {
+        this.listener = listener;
+
+        movieNameTextField.updateStateChangeListener(listener);
+        movieAuthorTextField.updateStateChangeListener(listener);
+        movieGenrePicker.updateStateChangeListener(listener);
+        movieYearTextField.updateStateChangeListener(listener);
+    }
+
+    private SearchBox createNameTextField() {
         return new SearchBox("Tytuł...", "Wyszukaj film po tytule", 15, listener, 0);
     }
-    private JTextField createAuthorTextField() {
+    private SearchBox createAuthorTextField() {
         return new SearchBox("Reżyser...", "Wyszukaj film po autorze", 15, listener, 1);
 
     }
-    private JComboBox<String> createMovieGenrePicker() {
+    private OptionPicker createMovieGenrePicker() {
         ArrayList<String> genres = MovieListUtils.getGenres();
         return new OptionPicker(genres, listener, 2);
 
     }
-    private JTextField createYearTextField() {
+    private SearchBox createYearTextField() {
         return new SearchBox("Rok...", "Wyszukaj film po roku wydania", 4, listener, 3);
     }
 
