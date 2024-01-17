@@ -118,6 +118,7 @@ public class ProductWindow extends JFrame {
           }
           if (available) {
             basket.addProduct(filmInformation);
+            new MovieSearchWindow(this);
           } else {
             warning.setText("Ten produkt znajduje się już w Twoim koszyku!");
           }
