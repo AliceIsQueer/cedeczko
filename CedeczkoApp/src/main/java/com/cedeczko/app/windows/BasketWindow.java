@@ -121,6 +121,7 @@ public class BasketWindow extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(products_table);
         scrollPane.setPreferredSize(new Dimension(6 * wide / 10, high - upper_high));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         left_panel.add(scrollPane);
 
         left_panel.add(llabel);
