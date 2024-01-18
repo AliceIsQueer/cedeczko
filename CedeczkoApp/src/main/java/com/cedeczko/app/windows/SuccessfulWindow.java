@@ -46,7 +46,7 @@ public class SuccessfulWindow extends JFrame {
 
         JPanel main_panel = new JPanel();
         main_panel.setLayout(new BorderLayout());
-        main_panel.setPreferredSize(new Dimension(wide, high / 3));
+        main_panel.setPreferredSize(new Dimension(wide, high / 4));
 
         // góra ekranu
         JPanel up_panel = new JPanel();
@@ -62,7 +62,7 @@ public class SuccessfulWindow extends JFrame {
         // środkowa część ekranu
         JPanel central_panel = new JPanel();
         central_panel.setLayout(new BoxLayout(central_panel, BoxLayout.PAGE_AXIS));
-        central_panel.add(Box.createRigidArea(new Dimension(0, high / 6)));
+        central_panel.add(Box.createRigidArea(new Dimension(0, high / 4 - upper_high)));
         JLabel label1 = new JLabel("PŁATNOŚĆ PRZEBIEGŁA POMYŚLNIE!");
         label1.setAlignmentX(Component.CENTER_ALIGNMENT);
         central_panel.add(label1);
@@ -75,17 +75,17 @@ public class SuccessfulWindow extends JFrame {
         JLabel label4 = new JLabel("Zapraszamy ponownie!");
         label4.setAlignmentX(Component.CENTER_ALIGNMENT);
         central_panel.add(label4);
-        main_panel.add(central_panel, BorderLayout.CENTER);
+        main_panel.add(central_panel, BorderLayout.SOUTH);
         
         add(main_panel, BorderLayout.NORTH);
 
         JPanel bottom_panel = new JPanel();
-        bottom_panel.setPreferredSize(new Dimension(wide / 2, high / 2));
+        bottom_panel.setPreferredSize(new Dimension(wide / 2, 3 * high / 4));
         bottom_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         JTextArea receiptTextArea = new JTextArea(get_receipt());
         receiptTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(receiptTextArea);
-        scrollPane.setPreferredSize(new Dimension(3 * wide / 7, high / 3));
+        scrollPane.setPreferredSize(new Dimension(3 * wide / 7, 2 * high / 3));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         bottom_panel.add(scrollPane);
         add(bottom_panel, BorderLayout.CENTER);
@@ -94,10 +94,15 @@ public class SuccessfulWindow extends JFrame {
     }
 
     private String get_receipt() {
-      String receipt = "                                            Sklep Cedeczko\n";
-      receipt += "                                         04-935  Warszawa\n";
-      receipt += "                                               Filmowa  1\n";
-      receipt += "                                        NIP: 012-345-67-89\n\n";
+      String receipt = "";
+      receipt += " ".repeat(44);
+      receipt += "Sklep Cedeczko\n";
+      receipt += " ".repeat(41);
+      receipt += "04-935  Warszawa\n";
+      receipt += " ".repeat(47);
+      receipt += "Filmowa  1\n";
+      receipt += " ".repeat(40);
+      receipt += "NIP: 012-345-67-89\n\n";
       LocalDate currentDate = LocalDate.now();
       LocalTime currentTime = LocalTime.now();
       String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -105,7 +110,9 @@ public class SuccessfulWindow extends JFrame {
       receipt += formattedDate;
       receipt += " ".repeat(75);
       receipt += formattedTime;
-      receipt += "\n                                    PARAGON FISKALNY\n";
+      receipt += "\n";
+      receipt += " ".repeat(36);
+      receipt += "PARAGON FISKALNY\n";
       List<String[]> products = basket.getProducts();
       for (String[] film : products) {
         receipt += film[0];
