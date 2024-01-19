@@ -48,7 +48,7 @@ public class DatabaseConnector implements Database {
                     .getConnection(url);
 
             statement = connect.createStatement();
-            resultSet = statement.executeQuery("select * from cedeczko.movies");
+            resultSet = statement.executeQuery("select * from cedeczko.movies where sold=false");
 
             while (resultSet.next()) {
                 int movie_id = resultSet.getInt("movie_id");
@@ -156,11 +156,11 @@ public class DatabaseConnector implements Database {
               director = getDirectorName(director_id);
             }
 
-            /*PreparedStatement preparedStatement2 = connect.prepareStatement("delete from cedeczko.movies where movie_id = ?;");
+            PreparedStatement preparedStatement2 = connect.prepareStatement("update cedeczko.movies set sold=true where movie_id = ?;");
             preparedStatement2.setInt(1, id);
             preparedStatement2.executeUpdate();
 
-            PreparedStatement preparedStatement3 = connect.prepareStatement("delete from cedeczko.movies_genres where movie_id = ?;");
+            /*PreparedStatement preparedStatement3 = connect.prepareStatement("delete from cedeczko.movies_genres where movie_id = ?;");
             preparedStatement3.setInt(1, id);
             preparedStatement3.executeUpdate();*/
 
