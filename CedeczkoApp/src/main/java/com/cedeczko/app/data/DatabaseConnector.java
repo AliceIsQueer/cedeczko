@@ -4,7 +4,7 @@ import com.cedeczko.app.logic.Film;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class DatabaseConnector implements Database {
     private Connection connect = null;
@@ -143,8 +143,10 @@ public class DatabaseConnector implements Database {
         try {
             connect = DriverManager
                             .getConnection(url);
+            //PreparedStatement preparedStatement1 = connect.prepareStatement("select * from cedeczko.movies where description = ? and price = ?;");
             PreparedStatement preparedStatement1 = connect.prepareStatement("select * from cedeczko.movies where description = ?;");
             preparedStatement1.setString(1, filmInformation[5]);
+            //preparedStatement1.setInt(2, Math.round(Float.parseFloat(filmInformation[4])));
             resultSet = preparedStatement1.executeQuery();
             int id = -1;
             String title = null;
@@ -171,5 +173,61 @@ public class DatabaseConnector implements Database {
         } finally {
             close();
         }
+    }
+
+    public int addClientsData(String name, String surname, String street, String building, int flat, String postalCode, String city, String email) {
+      try {
+          connect = DriverManager
+                          .getConnection(url);
+          PreparedStatement preparedStatement = connect.prepareStatement("insert into customers (name, surname, street, building, flat, postal_code, city, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
+          preparedStatement.setString(1, name);
+          preparedStatement.setString(2, surname);
+          preparedStatement.setString(3, street);
+          preparedStatement.setString(4, building);
+          preparedStatement.setInt(5, flat);
+          preparedStatement.setString(6, postalCode);
+          preparedStatement.setString(7, city);
+          preparedStatement.setString(8, email);
+          preparedStatement.executeUpdate();
+          ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+          int customerId = -1;
+          if (generatedKeys.next()) {
+              customerId = generatedKeys.getInt(1);
+          }
+          return customerId;
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      } finally {
+          close();
+      }
+    }
+
+    public void addReceipt(int customerId, String dateTime, float price, List<String[]> products) {
+      try {
+        connect = DriverManager
+                        .getConnection(url);
+        PreparedStatement preparedStatement1 = connect.prepareStatement("insert into receipts (customer_id, date_time, amount) VALUES (?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
+        preparedStatement1.setInt(1, customerId);
+        preparedStatement1.setString(2, dateTime);
+        preparedStatement1.setFloat(3, price);
+
+        ResultSet generatedKeys = preparedStatement1.getGeneratedKeys();
+        int receiptId = -1;
+        if (generatedKeys.next()) {
+            receiptId = generatedKeys.getInt(1);
+        }
+        for (String[] product : products) {
+            //PreparedStatement preparedStatement2 = connect.prepareStatement("update movies set receipt_id = ? where description = ? and price = ?;");
+            PreparedStatement preparedStatement2 = connect.prepareStatement("update movies set receipt_id = ? where description = ?;");
+            preparedStatement2.setInt(1, receiptId);
+            preparedStatement2.setString(2, product[5]);
+            //preparedStatement2.setInt(3, Math.round(Float.parseFloat(product[4])));
+            preparedStatement2.executeUpdate();
+        }
+      } catch (SQLException e) {
+          throw new RuntimeException(e);
+      } finally {
+          close();
+      }
     }
 }

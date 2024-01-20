@@ -1,4 +1,6 @@
 package com.cedeczko.app.windows;
+import com.cedeczko.app.data.Database;
+import com.cedeczko.app.data.DatabaseConnector;
 import com.cedeczko.app.logic.Basket;
 
 import java.awt.BorderLayout;
@@ -12,6 +14,7 @@ import java.awt.Dimension;
 
 public class PaymentWindow extends JFrame {
     private Basket basket = Basket.getInstance();
+    static Database db = new DatabaseConnector();
 
     public PaymentWindow() {
         initialize();
@@ -155,7 +158,8 @@ public class PaymentWindow extends JFrame {
                 } else if (!rodo.isSelected()){
                     warning.setText("Musisz zezwolić na wykozystanie danych.");
                 } else {
-                    new SuccessfulWindow(PaymentWindow.this);
+                    int customerId = db.addClientsData(name, surname, street, building, Integer.parseInt(flat), post_code, city, email);
+                    new SuccessfulWindow(PaymentWindow.this, customerId);
                 }
             }
         });

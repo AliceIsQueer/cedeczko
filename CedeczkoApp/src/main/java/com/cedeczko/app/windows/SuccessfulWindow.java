@@ -20,12 +20,8 @@ public class SuccessfulWindow extends JFrame {
     private Basket basket = Basket.getInstance();
     static Database db = new DatabaseConnector();
 
-    public SuccessfulWindow() {
-        initialize();
-    }
-
-    public SuccessfulWindow(JFrame previous_window) {
-        initialize();
+    public SuccessfulWindow(JFrame previous_window, int customerId) {
+        initialize(customerId);
         previous_window.dispose();
         for (String[] product : basket.getProducts()) {
             db.deleteFilm(product);
@@ -33,7 +29,7 @@ public class SuccessfulWindow extends JFrame {
         basket.removeAllProducts();
     }
 
-    public void initialize() {
+    public void initialize(int customerId) {
         int wide = 900;
         int high = 800;
         int upper_high = 50;
@@ -82,18 +78,26 @@ public class SuccessfulWindow extends JFrame {
         JPanel bottom_panel = new JPanel();
         bottom_panel.setPreferredSize(new Dimension(wide / 2, 3 * high / 4));
         bottom_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        JTextArea receiptTextArea = new JTextArea(get_receipt());
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        String receipt = getReceipt(formattedDate, formattedTime);
+        JTextArea receiptTextArea = new JTextArea(receipt);
         receiptTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(receiptTextArea);
         scrollPane.setPreferredSize(new Dimension(3 * wide / 7, 2 * high / 3));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        String dateTime = "";
+        dateTime += formattedDate + " " + formattedTime;
+        db.addReceipt(customerId, dateTime, basket.getValue(), basket.getProducts());
         bottom_panel.add(scrollPane);
         add(bottom_panel, BorderLayout.CENTER);
         
         setVisible(true);
     }
 
-    private String get_receipt() {
+    private String getReceipt(String date, String time) {
       String receipt = "";
       receipt += " ".repeat(44);
       receipt += "Sklep Cedeczko\n";
@@ -103,13 +107,9 @@ public class SuccessfulWindow extends JFrame {
       receipt += "Filmowa  1\n";
       receipt += " ".repeat(40);
       receipt += "NIP: 012-345-67-89\n\n";
-      LocalDate currentDate = LocalDate.now();
-      LocalTime currentTime = LocalTime.now();
-      String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      String formattedTime = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-      receipt += formattedDate;
+      receipt += date;
       receipt += " ".repeat(75);
-      receipt += formattedTime;
+      receipt += time;
       receipt += "\n";
       receipt += " ".repeat(36);
       receipt += "PARAGON FISKALNY\n";
