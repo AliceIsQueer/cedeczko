@@ -180,7 +180,7 @@ public class PaymentWindow extends JFrame {
            ok = false;
         }
         for (int i = 0; i < given_string.length(); i++) {
-            if (!Character.isLetter(given_string.charAt(i))) {
+            if ((!Character.isLetter(given_string.charAt(i))) && (!Character.isSpaceChar(given_string.charAt(i)))) {
                 ok = false;
             }
         }
