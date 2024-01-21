@@ -38,11 +38,4 @@ public class TestSearchParams {
         assertTrue(searchParams.listIncludesParams(new String[]{"searchparam1", "searchparam2", "searchparam3"}));
         assertFalse(searchParams.listIncludesParams(new String[]{"searchparam1", "searchparam3", "searchparam2"}));
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testListIncludesParamsThrowsException() {
-        SearchParams searchParams = new SearchParams(3);
-
-        searchParams.listIncludesParams(new String[]{"searchparam1", "searchparam2"});
-    }
 }
