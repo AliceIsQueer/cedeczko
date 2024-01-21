@@ -41,7 +41,7 @@ public class MovieSearchWindow {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        ImageIcon icon = new ImageIcon("src/main/resources/loader.gif");
+        ImageIcon icon = new ImageIcon("src/main/resources/Cedeczko_logo.png");
         loader = new JLabel(icon);
         loader.setPreferredSize(new Dimension(WindowConstants.width, 600));
 
